@@ -7,10 +7,16 @@
 void player_move(Entity *self){
 	//slog("Player Move Function called");
 	Uint8 *buttons = SDL_GetKeyboardState(NULL);
-
+	int speed = 3;
+	vector2d_set(self->velocity, 1, 1);
+	
 	if (buttons[SDL_SCANCODE_RIGHT]){
 		slog("button pressed");
-		vector2d_set(self->velocity, 1, 1);
+		self->position.x += speed;
+		return;
+	}
+	if (buttons[SDL_SCANCODE_LEFT]){	
+		self->position.x -= speed;
 		return;
 	}
 }

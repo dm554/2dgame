@@ -53,7 +53,7 @@ int main(int argc, char * argv[])
     sprite = gf2d_sprite_load_image("images/backgrounds/bg_flat.png");
     mouse = gf2d_sprite_load_all("images/pointer.png",32,32,16);
 	
-	player = player_new(vector2d(200,200));
+	player = player_new(vector2d(1100,1100));
 	slog("player ent made");
     /*main game loop*/
     while(!done)
