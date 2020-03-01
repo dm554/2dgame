@@ -7,16 +7,45 @@
 void player_move(Entity *self){
 	//slog("Player Move Function called");
 	Uint8 *buttons = SDL_GetKeyboardState(NULL);
-	int speed = 3;
 	vector2d_set(self->velocity, 1, 1);
 	
+	
+	if (buttons[SDL_SCANCODE_RIGHT] && buttons[SDL_SCANCODE_UP]){
+		self->position.x += 1.5;
+		self->position.y -= 0.5;
+		return;
+	}
+	if (buttons[SDL_SCANCODE_RIGHT] && buttons[SDL_SCANCODE_DOWN]){
+		self->position.x += 1.5;
+		self->position.y += 0.5;
+		return;
+	}
+	if (buttons[SDL_SCANCODE_LEFT] && buttons[SDL_SCANCODE_UP]){
+		self->position.x -= 1.5;
+		self->position.y -= 0.5;
+		return;
+	}
+	if (buttons[SDL_SCANCODE_LEFT] && buttons[SDL_SCANCODE_DOWN]){
+		self->position.x -= 1.5;
+		self->position.y += 0.5;
+		return;
+	}
 	if (buttons[SDL_SCANCODE_RIGHT]){
-		slog("button pressed");
-		self->position.x += speed;
+		self->position.x += 3;
+		//self->sprite = gf2d_sprite_load_all("images/playerWalk.png", 110, 200, 5);
 		return;
 	}
 	if (buttons[SDL_SCANCODE_LEFT]){	
-		self->position.x -= speed;
+		self->position.x -= 3;
+		//self->sprite = gf2d_sprite_load_all("images/playerWalk.png", 110, 200, 5);
+		return;
+	}
+	if (buttons[SDL_SCANCODE_UP]){
+		self->position.y -= 2;
+		return;
+	}
+	if (buttons[SDL_SCANCODE_DOWN]){
+		self->position.y += 2;
 		return;
 	}
 }
