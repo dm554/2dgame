@@ -11,10 +11,14 @@ typedef struct Entity_S
 	
 	Vector2D position;
 	Vector2D velocity;
+
+	float attacking;
 	
 	SDL_Rect hitbox;
 
 	void(*think)(struct Entity_S *self);
+	void(*collide)(struct Entity_S *self);
+
 }Entity;
 
 Entity *entity_new();
@@ -24,5 +28,6 @@ void entity_free(Entity *self);
 
 void entity_update_all();
 void entity_draw_all();
+void entity_collision_check(Entity *self);
 
 #endif

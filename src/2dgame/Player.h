@@ -7,4 +7,8 @@ Entity *player_new(Vector2D position);
 
 void player_think(Entity *self);
 
+void player_move(Entity *self);
+
+void player_attack(Entity *self);
+
 #endif
