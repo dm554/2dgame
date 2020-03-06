@@ -128,6 +128,7 @@
     <ClCompile Include="..\..\gfc\src\gfc_types.c" />
     <ClCompile Include="..\..\gfc\src\gfc_vector.c" />
     <ClCompile Include="..\..\include\Level.c" />
+    <ClCompile Include="..\Collider.c" />
     <ClCompile Include="..\game.c" />
     <ClCompile Include="..\gf2d_draw.c" />
     <ClCompile Include="..\gf2d_graphics.c" />

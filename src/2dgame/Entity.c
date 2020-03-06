@@ -77,7 +77,8 @@ void entity_update(Entity *self)
 {
 	if (!self)return;
 	self->frame = self->frame + 0.1;
-	if (self->frame > 10)self->frame = 0;
+	if (self->frame < self->minFrame)self->frame = self->minFrame;
+	if (self->frame > self->maxFrame)self->frame = self->minFrame;
 }
 
 void entity_update_all()
@@ -105,7 +106,7 @@ void entity_draw(Entity *self)
 	gf2d_sprite_draw(
 		self->sprite,
 		self->position,
-		NULL,
+		self-> scale,
 		NULL,
 		NULL,
 		NULL,

@@ -8,7 +8,10 @@ typedef struct Entity_S
 	Uint8	_inuse;
 	Sprite	*sprite;
 	float frame;
+	float minFrame;
+	float maxFrame;
 	
+	Vector2D *scale;
 	Vector2D position;
 	Vector2D velocity;
 

@@ -23,9 +23,16 @@ Entity *player_new(Vector2D position){
 	Entity *self;
 	self = entity_new();
 
-	self->sprite = gf2d_sprite_load_all("images/playerSprite2.png", 160, 200, 5);
+
+	self->position = vector2d(600, 350);
+	self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
 	self->think = player_think;
+	self->hitbox.x = 64;
+	self->hitbox.y = 64;
+	self->minFrame = 0;
+	self->maxFrame = 5;
 	self->attacking = 0;
+	
 	return self;
 }
 
@@ -88,7 +95,9 @@ void player_move(Entity *self){
 	}
 
 	int walking = 0;
-	self->sprite = gf2d_sprite_load_all("images/playerSprite2.png", 160, 200, 5);
+	self->minFrame = 0;
+	self->maxFrame = 5;
+	self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
 }
 
 void player_attack(Entity *self){
@@ -97,12 +106,29 @@ void player_attack(Entity *self){
 	
 	if (buttons[SDL_SCANCODE_Z]){
 		self->attacking = 1;
-		self->sprite = gf2d_sprite_load_all("images/playerHit.png", 188, 248, 5);
+		self->sprite = gf2d_sprite_load_all("images/playerAttack.png", 64, 64, 12);
+		self->minFrame = 56;
+		self->maxFrame = 61;
+		slog("attack");
+		return;
+	}
+	if (buttons[SDL_SCANCODE_X]){
+		self->attacking = 1;
+		self->sprite = gf2d_sprite_load_all("images/playerAttack.png", 64, 64, 12);
+		self->minFrame = 104;
+		self->maxFrame = 114;
 		slog("attack");
 		return;
 	}
 
 	self->attacking = 0;
-	self->sprite = gf2d_sprite_load_all("images/playerSprite2.png", 160, 200, 5);
+	self->minFrame = 0;
+	self->maxFrame = 5;
+	self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
+}
+
+void player_collide(Entity *self){
+	
+	
 }
 
