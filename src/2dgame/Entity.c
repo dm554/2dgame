@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include "simple_logger.h"
 #include "Entity.h"
+#include "gf2d_draw.h"
+#include "Collider.h"
+#include "gfc_types.h"
+
 
 typedef struct{
 	
@@ -96,6 +100,29 @@ void entity_update_all()
 	
 }
 
+void entity_collide(Entity *e1, Entity *e2)
+{
+	if (collide_rect(e1->bodyHitbox, e2->bodyHitbox))
+	{
+		if (e1->collide)
+		{
+			e1->collide(e1, e2);
+		}
+	}
+}
+
+void entity_collide_check(Entity *entity)
+{
+	int i;
+	if (!entity)return;
+	for (i = 0; i < entity_manager.maxEnts; i++)
+	{
+		if (!entity_manager.entityList[i]._inuse)continue;
+		if (&entity_manager.entityList[i] == entity)continue;
+		entity_collide(entity, &entity_manager.entityList[i]);
+	}
+}
+
 void entity_draw(Entity *self)
 {
 	if (self == NULL)
@@ -112,6 +139,8 @@ void entity_draw(Entity *self)
 		NULL,
 		NULL,
 		(Uint32)self->frame);
+	gfc_rect_set(self->bodyHitbox, self->position.x, self->position.y, self->bodyHitbox.x, self->bodyHitbox.y);
+	gf2d_draw_rect(self->bodyHitbox, vector4d(255, 0, 255, 255));
 }
 
 void entity_draw_all()
@@ -122,5 +151,4 @@ void entity_draw_all()
 		if (!entity_manager.entityList[i]._inuse)continue;
 		entity_draw(&entity_manager.entityList[i]);
 	}
-	//slog("Entities Drawn");
 }

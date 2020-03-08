@@ -23,12 +23,11 @@ Entity *player_new(Vector2D position){
 	Entity *self;
 	self = entity_new();
 
-
 	self->position = vector2d(600, 350);
 	self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
 	self->think = player_think;
-	self->hitbox.x = 64;
-	self->hitbox.y = 64;
+	self->bodyHitbox.x = 64;
+	self->bodyHitbox.y = 64;
 	self->minFrame = 0;
 	self->maxFrame = 5;
 	self->attacking = 0;

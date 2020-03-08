@@ -11,4 +11,6 @@ void player_move(Entity *self);
 
 void player_attack(Entity *self);
 
+void player_collide(Entity*self);
+
 #endif
