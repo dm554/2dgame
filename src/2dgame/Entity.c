@@ -83,6 +83,7 @@ void entity_update(Entity *self)
 	self->frame = self->frame + 0.1;
 	if (self->frame < self->minFrame)self->frame = self->minFrame;
 	if (self->frame > self->maxFrame)self->frame = self->minFrame;
+	entity_collide_check(self);
 }
 
 void entity_update_all()
@@ -125,6 +126,7 @@ void entity_collide_check(Entity *entity)
 
 void entity_draw(Entity *self)
 {
+	SDL_Rect rect;
 	if (self == NULL)
 	{
 		slog("cannot draw sprite, NULL entity provided!");
@@ -139,8 +141,8 @@ void entity_draw(Entity *self)
 		NULL,
 		NULL,
 		(Uint32)self->frame);
-	gfc_rect_set(self->bodyHitbox, self->position.x, self->position.y, self->bodyHitbox.x, self->bodyHitbox.y);
-	gf2d_draw_rect(self->bodyHitbox, vector4d(255, 0, 255, 255));
+	gfc_rect_set(rect, self->position.x, self->position.y, self->bodyHitbox.x, self->bodyHitbox.y);
+	gf2d_draw_rect(rect, vector4d(64, 64, 255, 255));
 }
 
 void entity_draw_all()

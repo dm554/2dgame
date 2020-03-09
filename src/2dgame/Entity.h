@@ -34,7 +34,7 @@ void entity_free(Entity *self);
 
 void entity_update_all();
 void entity_draw_all();
-void entity_collision_check(Entity *e1, Entity *e2);
-void entity_collide(Entity *self);
+void entity_collide_check(Entity *self);
+void entity_collide(Entity *e1, Entity *e2);
 
 #endif

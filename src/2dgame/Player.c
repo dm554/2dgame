@@ -14,6 +14,8 @@ void player_think(Entity *self){
 		player_move(self);
 	}
 
+
+
 	//entity_collision_check(self);
 
 }
@@ -26,6 +28,7 @@ Entity *player_new(Vector2D position){
 	self->position = vector2d(600, 350);
 	self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
 	self->think = player_think;
+	self->collide = player_collide;
 	self->bodyHitbox.x = 64;
 	self->bodyHitbox.y = 64;
 	self->minFrame = 0;
@@ -126,8 +129,9 @@ void player_attack(Entity *self){
 	self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
 }
 
-void player_collide(Entity *self){
+void player_collide(Entity *self, Entity *other){
 	
-	
+	slog("Collision Detected");
+
 }
 
