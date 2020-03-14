@@ -83,6 +83,9 @@ void entity_update(Entity *self)
 	self->frame = self->frame + 0.1;
 	if (self->frame < self->minFrame)self->frame = self->minFrame;
 	if (self->frame > self->maxFrame)self->frame = self->minFrame;
+	
+	self->bodyHitbox.x = self->position.x;
+	self->bodyHitbox.y = self->position.y;
 	entity_collide_check(self);
 }
 
@@ -141,7 +144,7 @@ void entity_draw(Entity *self)
 		NULL,
 		NULL,
 		(Uint32)self->frame);
-	gfc_rect_set(rect, self->position.x, self->position.y, self->bodyHitbox.x, self->bodyHitbox.y);
+	gfc_rect_set(rect, self->bodyHitbox.x, self->bodyHitbox.y, self->bodyHitbox.w, self->bodyHitbox.h);
 	gf2d_draw_rect(rect, vector4d(64, 64, 255, 255));
 }
 

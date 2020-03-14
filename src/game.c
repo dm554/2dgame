@@ -31,9 +31,9 @@ int main(int argc, char * argv[])
     Sprite *mouse;
     Vector4D mouseColor = {255,100,255,200};
     
-	Entity *bug;
+
 	Entity *player1;
-	Entity *player2;
+	Entity *grunt;
     /*program initializtion*/
     init_logger("gf2d.log");
     slog("---==== BEGIN ====---");
@@ -55,7 +55,7 @@ int main(int argc, char * argv[])
     mouse = gf2d_sprite_load_all("images/pointer.png",32,32,16);
 	
 	player1 = player_new(vector2d(1100,1100));
-	player2 = player_new(vector2d(1100, 1100));
+	grunt = grunt_new(vector2d(1100, 1100));
 	slog("player ent made");
     /*main game loop*/
     while(!done)

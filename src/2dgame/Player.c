@@ -13,11 +13,6 @@ void player_think(Entity *self){
 	if (!self->attacking){
 		player_move(self);
 	}
-
-
-
-	//entity_collision_check(self);
-
 }
 
 Entity *player_new(Vector2D position){
@@ -29,8 +24,10 @@ Entity *player_new(Vector2D position){
 	self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
 	self->think = player_think;
 	self->collide = player_collide;
-	self->bodyHitbox.x = 64;
-	self->bodyHitbox.y = 64;
+	self->bodyHitbox.x = self->position.x;
+	self->bodyHitbox.y = self->position.y;
+	self->bodyHitbox.w = 64;
+	self->bodyHitbox.h = 64;
 	self->minFrame = 0;
 	self->maxFrame = 5;
 	self->attacking = 0;
@@ -129,9 +126,9 @@ void player_attack(Entity *self){
 	self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
 }
 
-void player_collide(Entity *self, Entity *other){
+void player_collide(){
 	
-	slog("Collision Detected");
+	//slog("Collision Detected");
 
 }
 

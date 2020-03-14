@@ -1,5 +1,6 @@
 #include "Entity.h"
 #include "Player.h"
+#include "simple_logger.h"
 
 int collide_rect(SDL_Rect r1, SDL_Rect r2)
 {
@@ -9,6 +10,8 @@ int collide_rect(SDL_Rect r1, SDL_Rect r2)
 		((r2.y + r2.h) < r1.y))
 	{
 		return 0;
+	
 	}
+	slog("Collision Detected");
 	return 1;
 }
