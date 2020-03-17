@@ -112,7 +112,6 @@ void player_attack(Entity *self){
 		self->minFrame = 56;
 		self->maxFrame = 61;
 		self->lastAttack = 1;
-		slog("attack");
 		return;
 	}
 	if (buttons[SDL_SCANCODE_X]){
@@ -120,8 +119,7 @@ void player_attack(Entity *self){
 		self->sprite = gf2d_sprite_load_all("images/playerAttack.png", 64, 64, 12);
 		self->minFrame = 104; 
 		self->maxFrame = 114;
-		self->lastAttack = 0;
-		slog("attack");
+		self->lastAttack = 2;
 		return;
 	}
 
@@ -136,9 +134,18 @@ void player_attack(Entity *self){
 
 void player_collide(Entity *self, Entity *other){
 	
-	if (other->attacking){
-		self->health -= 1;
+	/*if (other->type = 2 && self->attacking){
+		//vector2d_set(other->velocity, 1, 1);
+		if (self->lastAttack = 1){
+			other->position.x += 10;
+			other->health -= 1;
+		}
+		if (self->lastAttack = 2){
+			other->position.x += 15;
+			other->position.y += 10;
+			other->health -= 2;
+		}
 	}
-
+*/
 }
 

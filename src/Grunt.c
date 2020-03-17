@@ -2,6 +2,8 @@
 #include "Grunt.h"
 
 Entity *playerTarget;
+static int attackTimer = 0;
+
 Entity *grunt_new(Vector2D position, Entity *target){
 	
 	Entity *self;
@@ -35,46 +37,70 @@ void grunt_think(Entity *self){
 void grunt_move(Entity *self, Entity *target){
 	vector2d_set(self->velocity, 1, 1);
 	float xDistance = abs(self->position.x - target->position.x);
-	float yDistance =  abs(self->position.y - target->position.y);
+	float yDistance = abs(self->position.y - target->position.y);
 	
-	
-	if (yDistance > 50){
-		if (self->position.y > target->position.y){
-			self->position.y -= 0.5;
-			return;
+	if (!self->attacking){
+		if (yDistance > 50){
+			if (self->position.y > target->position.y){
+				self->position.y -= 0.5;
+				return;
+			}
+			if (self->position.y < target->position.y){
+				self->position.y += 0.5;
+				return;
+			}
 		}
-		if (self->position.y < target->position.y){
-			self->position.y += 0.5;
-			return;
+
+		if (xDistance > 50){
+			if (self->position.x > target->position.x){
+				self->position.x -= 0.5;
+				return;
+			}
+			if (self->position.x < target->position.x){
+				self->position.x += 0.5;
+				return;
+			}
+		}
+
+		if (yDistance > 10){
+			if (self->position.y > target->position.y){
+				self->position.y -= 0.5;
+				return;
+			}
+			if (self->position.y < target->position.y){
+				self->position.y += 0.5;
+				return;
+			}
 		}
 	}
 
-	if (xDistance > 50){
-		if (self->position.x > target->position.x){
-			self->position.x -= 0.5;
-			return;
-		}
-		if (self->position.x < target->position.x){
-			self->position.x += 0.5;
-			return;
-		}
-	}
-
-	if (yDistance > 10){
-		if (self->position.y > target->position.y){
-			self->position.y -= 0.5;
-			return;
-		}
-		if (self->position.y < target->position.y){
-			self->position.y += 0.5;
-			return;
-		}
-	}
+	grunt_attack(self);
 
 
 }
 
 void grunt_attack(Entity *self){
+	
+	if (attackTimer < 60){
+		attackTimer++;
+		return;
+	}
+	
+	self->minFrame = 56;
+	self->maxFrame = 61;
+
+	if (attackTimer < 120){
+		self->attacking = 1;
+		self->sprite = gf2d_sprite_load_all("images/playerAttack.png", 64, 64, 12);
+		attackTimer++;
+		return;
+	}
+	
+	attackTimer = 0;
+	self->attacking = 0;
+	self->minFrame = 0;
+	self->maxFrame = 5;
+	self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
 
 }
 
