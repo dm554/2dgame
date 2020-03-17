@@ -7,7 +7,12 @@ typedef struct Entity_S
 {
 	Uint8	_inuse;
 	Uint8	type;	//1 = Player, 2 = Enemy, 3 = Neutral Object
+	Uint8	health;
+	Uint8	reset;
+	Uint8	lastAttack; //Attack1, Attack2
+	
 	Sprite	*sprite;
+	
 	float frame;
 	float minFrame;
 	float maxFrame;
