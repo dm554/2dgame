@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "gf2d_draw.h"
 #include "Collider.h"
+#include "Level.h"
 #include "gfc_types.h"
 
 
@@ -74,7 +75,9 @@ void entity_free(Entity *self)
 {
 	if (!self)return;
 	gf2d_sprite_free(self->sprite);
+	if (self->type = 2)level_get_active()->levelComplete = 1;
 	memset(self, 0, sizeof(Entity));
+	
 }
 
 void entity_update(Entity *self)

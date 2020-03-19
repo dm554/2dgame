@@ -18,12 +18,14 @@ void player_think(Entity *self){
 Entity *player_new(Vector2D position){
 
 	Entity *self;
+	Vector2D *scaleMag;
 	self = entity_new();
 
 	self->position = vector2d(600, 350);
 	self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
 	self->think = player_think;
 	self->collide = player_collide;
+	//self->scale = scaleMag;
 	self->bodyHitbox.x = self->position.x;
 	self->bodyHitbox.y = self->position.y;
 	self->bodyHitbox.w = 64;

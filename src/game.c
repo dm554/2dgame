@@ -4,6 +4,7 @@
 #include "gf2d_sprite.h"
 #include "simple_logger.h"
 #include "Player.h"
+#include "Level.h"
 #include <SDL_image.h>
 #include <stdlib.h>
 
@@ -34,6 +35,8 @@ int main(int argc, char * argv[])
 
 	Entity *player1;
 	Entity *grunt;
+	Level *test;
+	SDL_Rect bounds = { 0, 0, 1200, 720 };
     /*program initializtion*/
     init_logger("gf2d.log");
     slog("---==== BEGIN ====---");
@@ -51,11 +54,14 @@ int main(int argc, char * argv[])
 	entity_manager_init(100);
     
     /*demo setup*/
-    sprite = gf2d_sprite_load_image("images/backgrounds/bg_flat.png");
+    //sprite = gf2d_sprite_load_image("images/backgrounds/Stage1ss.png");
     mouse = gf2d_sprite_load_all("images/pointer.png",32,32,16);
 	
 	player1 = player_new(vector2d(1100,1100));
 	grunt = grunt_new(vector2d(1100, 1100), player1);
+	test = level_new("images/backgrounds/Stage1ss.png", bounds);
+	int screencount = 0;
+	
 	slog("player ent made");
     /*main game loop*/
     while(!done)
@@ -67,11 +73,22 @@ int main(int argc, char * argv[])
         mf+=0.1;
         if (mf >= 16.0)mf = 0;
         
+		if (test->levelComplete){ 
+			test->position.x -= 2;
+			if (screencount < 500){
+				screencount++;
+			}
+			else{
+				test->levelComplete = 0;
+			}
+		}
+
 		entity_update_all();
         gf2d_graphics_clear_screen();// clears drawing buffers
         // all drawing should happen betweem clear_screen and next_frame
             //backgrounds drawn first
-            gf2d_sprite_draw_image(sprite,vector2d(0,0));
+		level_draw(test);
+            //gf2d_sprite_draw_image(sprite,vector2d(0,0));
 			//entities second
 			entity_draw_all();
             //UI elements last
@@ -85,7 +102,7 @@ int main(int argc, char * argv[])
                 &mouseColor,
                 (int)mf);
         gf2d_grahics_next_frame();// render current draw frame and skip to the next frame
-        
+		
         if (keys[SDL_SCANCODE_ESCAPE])done = 1; // exit condition
         //slog("Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
     }

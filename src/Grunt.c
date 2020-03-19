@@ -1,5 +1,6 @@
 #include "simple_logger.h"
 #include "Grunt.h"
+#include "Level.h"
 
 Entity *playerTarget;
 static int attackTimer = 0;
