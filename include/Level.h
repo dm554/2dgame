@@ -13,6 +13,7 @@ typedef struct
 	Uint8 winCon;
 	Uint8 spawnStage; //1,2,3
 	Uint8 levelComplete;
+	int screenCount;
 
 
 }Level;

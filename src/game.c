@@ -73,15 +73,7 @@ int main(int argc, char * argv[])
         mf+=0.1;
         if (mf >= 16.0)mf = 0;
         
-		if (test->levelComplete){ 
-			test->position.x -= 2;
-			if (screencount < 500){
-				screencount++;
-			}
-			else{
-				test->levelComplete = 0;
-			}
-		}
+		level_mover(level_get_active(), player1);
 
 		entity_update_all();
         gf2d_graphics_clear_screen();// clears drawing buffers

@@ -57,6 +57,7 @@ Level *level_new(char *backgroundFile, SDL_Rect bounds)
 	if (!level)return NULL;
 	level->background = gf2d_sprite_load_image(backgroundFile);
 	level->levelComplete = 0;
+	level->screenCount = 0;
 	gfc_rect_set(level->bounds, bounds.x, bounds.y, bounds.w, bounds.h);
 	THE_LEVEL = level;
 	return level;
@@ -74,4 +75,20 @@ void level_draw(Level *level)
 	if (!level)return;
 	gf2d_sprite_draw_image(level->background, level->position);
 	gf2d_draw_rect(level->bounds, vector4d(255, 0, 0, 255));
+}
+
+void level_mover(Level *self, Entity *player){
+
+	if (self ->levelComplete && player->position.x > 700){
+		self->position.x -= 2;
+		player->position.x -= 2;
+		if (self->screenCount < 500){
+			self->screenCount++;
+		}
+		else{
+			self->levelComplete = 0;
+			//self->screenCount = 0;
+			self->spawnStage++;
+		}
+	}
 }

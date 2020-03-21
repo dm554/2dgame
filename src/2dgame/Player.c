@@ -73,13 +73,13 @@ void player_move(Entity *self){
 		return;
 	}
 	if (buttons[SDL_SCANCODE_RIGHT]){
-		self->position.x += 3;
+		self->position.x += 2;
 		int walking = 1;
 		//self->sprite = gf2d_sprite_load_all("images/playerWalk.png", 110, 200, 5);
 		return;
 	}
 	if (buttons[SDL_SCANCODE_LEFT]){
-		self->position.x -= 3;
+		self->position.x -= 2;
 		int walking = 1;
 		//self->sprite = gf2d_sprite_load_all("images/playerWalk.png", 110, 200, 5);
 		return;
