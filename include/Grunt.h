@@ -3,7 +3,7 @@
 
 #include "Entity.h"
 
-Entity *grunt_new(Vector2D position);
+Entity *grunt_new(Entity *target);
 
 void grunt_think(Entity *self);
 

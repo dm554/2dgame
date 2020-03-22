@@ -5,12 +5,53 @@
 Entity *playerTarget;
 static int attackTimer = 0;
 
-Entity *grunt_new(Vector2D position, Entity *target){
+Entity *grunt_new(Entity *target){
 	
 	Entity *self;
 	playerTarget = target;
 	self = entity_new();
-	self->position = vector2d(700, 450);
+
+	Uint8 randomspawns = rand() % 8;
+	Vector2D oppspawn;
+
+	Vector2D spawn1 = vector2d(-350, -600);
+	Vector2D spawn2 = vector2d(-600, 600);
+	Vector2D spawn3 = vector2d(-600, -600);
+	Vector2D spawn4 = vector2d(-600, 350);
+	Vector2D spawn5 = vector2d(1000, 200);
+	Vector2D spawn6 = vector2d(750, 400);
+	Vector2D spawn7 = vector2d(350, 350);
+	Vector2D spawn8 = vector2d(1738, 420);
+
+	switch (randomspawns){
+		case 1:
+			oppspawn = spawn1;
+			break;
+		case 2:
+			oppspawn = spawn2;
+			break;
+		case 3:
+			oppspawn = spawn3;
+			break;
+		case 4:
+			oppspawn = spawn4;
+			break;
+		case 5:
+			oppspawn = spawn5;
+			break;
+		case 6:
+			oppspawn = spawn6;
+			break;
+		case 7:
+			oppspawn = spawn7;
+			break;
+		case 8:
+			oppspawn = spawn8;
+			break;
+	}
+
+
+	self->position = oppspawn;
 	self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
 	self->think = grunt_think;
 	self->collide = grunt_collide;

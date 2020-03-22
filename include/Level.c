@@ -1,6 +1,7 @@
 #include "simple_logger.h"
 #include "gf2d_draw.h"
 #include "level.h"
+#include "Grunt.h"
 
 
 static Level *THE_LEVEL = NULL;
@@ -92,3 +93,4 @@ void level_mover(Level *self, Entity *player){
 		}
 	}
 }
+
