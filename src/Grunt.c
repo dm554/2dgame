@@ -15,13 +15,13 @@ Entity *grunt_new(Entity *target){
 	Vector2D oppspawn;
 
 	Vector2D spawn1 = vector2d(-350, -600);
-	Vector2D spawn2 = vector2d(-600, 600);
+	Vector2D spawn2 = vector2d(-600, 400);
 	Vector2D spawn3 = vector2d(-600, -600);
-	Vector2D spawn4 = vector2d(-600, 350);
+	Vector2D spawn4 = vector2d(-100, 350);
 	Vector2D spawn5 = vector2d(1000, 200);
 	Vector2D spawn6 = vector2d(750, 400);
-	Vector2D spawn7 = vector2d(350, 350);
-	Vector2D spawn8 = vector2d(1738, 420);
+	Vector2D spawn7 = vector2d(100, 350);
+	Vector2D spawn8 = vector2d(1738, 300);
 
 	switch (randomspawns){
 		case 1:

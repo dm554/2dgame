@@ -80,7 +80,7 @@ void level_draw(Level *level)
 
 void level_mover(Level *self, Entity *player){
 
-	if (self ->levelComplete && player->position.x > 700){
+	if (self ->levelComplete > 5 && player->position.x > 700){
 		self->position.x -= 2;
 		player->position.x -= 2;
 		if (self->screenCount < 500){
@@ -88,8 +88,8 @@ void level_mover(Level *self, Entity *player){
 		}
 		else{
 			self->levelComplete = 0;
-			//self->screenCount = 0;
-			self->spawnStage++;
+			self->screenCount = 0;
+			self->spawnStage = 1;
 		}
 	}
 }

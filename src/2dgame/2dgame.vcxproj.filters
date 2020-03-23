@@ -93,6 +93,9 @@
     <ClInclude Include="..\..\include\Grunt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\Grunt2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\gfc\src\gfc_audio.c">
@@ -168,6 +171,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Grunt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Grunt2.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -20,6 +20,7 @@ typedef struct Entity_S
 	
 	
 	Vector2D *scale;
+	Vector2D *scalePoint;
 	Vector2D position;
 	Vector2D velocity;
 

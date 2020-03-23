@@ -34,7 +34,13 @@ int main(int argc, char * argv[])
     
 
 	Entity *player1;
-	Entity *grunt;
+	Entity *grunt1;
+	Entity *grunt2;
+	Entity *grunt3;
+	Entity *grunt4;
+	Entity *grunt5;
+	Entity *grunt6;
+	Uint8 currentStage;
 	Level *test;
 	SDL_Rect bounds = { 0, 0, 1200, 720 };
     /*program initializtion*/
@@ -58,7 +64,13 @@ int main(int argc, char * argv[])
     mouse = gf2d_sprite_load_all("images/pointer.png",32,32,16);
 	
 	player1 = player_new(vector2d(1100,1100));
-	grunt = grunt_new(player1);
+	grunt1 = grunt_new(player1);
+	grunt2 = grunt_new(player1);
+	grunt3 = grunt_new(player1);
+	grunt4 = grunt2_new(player1);
+	grunt5 = grunt2_new(player1);
+	grunt6 = grunt2_new(player1);
+
 	test = level_new("images/backgrounds/Stage1ss.png", bounds);
 	int screencount = 0;
 	
@@ -74,6 +86,25 @@ int main(int argc, char * argv[])
         if (mf >= 16.0)mf = 0;
         
 		level_mover(level_get_active(), player1);
+		if (level_get_active()->spawnStage){
+			slog("spawnstage");
+			if (currentStage < 5){
+				currentStage++;
+				Entity *grunt1;
+				Entity *grunt2;
+				Entity *grunt3;
+				Entity *grunt4;
+				Entity *grunt5;
+				Entity *grunt6;
+				grunt1 = grunt_new(player1);
+				grunt2 = grunt_new(player1);
+				grunt3 = grunt_new(player1);
+				grunt4 = grunt2_new(player1);
+				grunt5 = grunt2_new(player1);
+				grunt6 = grunt2_new(player1);
+				level_get_active()->spawnStage = 0;
+			}
+		}
 
 		entity_update_all();
         gf2d_graphics_clear_screen();// clears drawing buffers

@@ -75,7 +75,7 @@ void entity_free(Entity *self)
 {
 	if (!self)return;
 	gf2d_sprite_free(self->sprite);
-	if (self->type = 2)level_get_active()->levelComplete = 1;
+	if (self->type = 2)level_get_active()->levelComplete++;
 	memset(self, 0, sizeof(Entity));
 	
 }
@@ -141,8 +141,8 @@ void entity_draw(Entity *self)
 	gf2d_sprite_draw(
 		self->sprite,
 		self->position,
-		self-> scale,
-		NULL,
+		self->scale,
+		self->scalePoint,
 		NULL,
 		NULL,
 		NULL,
