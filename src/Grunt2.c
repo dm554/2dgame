@@ -14,14 +14,14 @@ Entity *grunt2_new(Entity *target){
 	Uint8 randomspawns = rand() % 8;
 	Vector2D oppspawn;
 
-	Vector2D spawn1 = vector2d(-350, -600);
-	Vector2D spawn2 = vector2d(-600, 600);
-	Vector2D spawn3 = vector2d(-600, -600);
-	Vector2D spawn4 = vector2d(-600, 350);
-	Vector2D spawn5 = vector2d(1000, 200);
-	Vector2D spawn6 = vector2d(750, 400);
-	Vector2D spawn7 = vector2d(350, 350);
-	Vector2D spawn8 = vector2d(1738, 420);
+	Vector2D spawn1 = vector2d(-400, 800);
+	Vector2D spawn2 = vector2d(-500, 500);
+	Vector2D spawn3 = vector2d(-600, 200);
+	Vector2D spawn4 = vector2d(-700, 450);
+	Vector2D spawn5 = vector2d(1000, 400);
+	Vector2D spawn6 = vector2d(750, 600);
+	Vector2D spawn7 = vector2d(350, 700);
+	Vector2D spawn8 = vector2d(500, 500);
 
 	switch (randomspawns){
 	case 1:
@@ -52,7 +52,7 @@ Entity *grunt2_new(Entity *target){
 
 
 	self->position = oppspawn;
-	self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
+	self->sprite = gf2d_sprite_load_all("images/Grunt2idle.png", 64, 64, 5);
 	self->think = grunt2_think;
 	self->collide = grunt2_collide;
 	self->bodyHitbox.x = self->position.x;
@@ -81,37 +81,46 @@ void grunt2_move(Entity *self, Entity *target){
 	float xDistance = abs(self->position.x - target->position.x);
 	float yDistance = abs(self->position.y - target->position.y);
 
+	if (self->position.x > target->position.x){
+		self->forward = 0;
+		self->sprite = gf2d_sprite_load_all("images/Grunt2idleflip.png", 64, 64, 5);
+	}
+	if (self->position.x < target->position.x){
+		self->forward = 1;
+		self->sprite = gf2d_sprite_load_all("images/Grunt2idle.png", 64, 64, 5);
+	}
+
 	if (!self->attacking){
 		
 		if (xDistance > 50){
 			if (self->position.x > target->position.x){
-				self->position.x -= 0.5;
+				self->position.x -= 1;
 				return;
 			}
 			if (self->position.x < target->position.x){
-				self->position.x += 0.5;
+				self->position.x += 1;
 				return;
 			}
 		}
 
 		if (yDistance > 50){
 			if (self->position.y > target->position.y){
-				self->position.y -= 0.5;
+				self->position.y -= 1;
 				return;
 			}
 			if (self->position.y < target->position.y){
-				self->position.y += 0.5;
+				self->position.y += 1;
 				return;
 			}
 		}
 
 		if (xDistance > 10){
 			if (self->position.x > target->position.x){
-				self->position.x -= 0.5;
+				self->position.x -= 1;
 				return;
 			}
 			if (self->position.x < target->position.x){
-				self->position.x += 0.5;
+				self->position.x += 1;
 				return;
 			}
 		}
@@ -134,7 +143,7 @@ void grunt2_attack(Entity *self){
 
 	if (attackTimer < 120){
 		self->attacking = 1;
-		self->sprite = gf2d_sprite_load_all("images/playerAttack.png", 64, 64, 12);
+		self->sprite = gf2d_sprite_load_all("images/Grunt2attack.png", 64, 64, 12);
 		attackTimer++;
 		return;
 	}
@@ -143,15 +152,20 @@ void grunt2_attack(Entity *self){
 	self->attacking = 0;
 	self->minFrame = 0;
 	self->maxFrame = 5;
-	self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
+	self->sprite = gf2d_sprite_load_all("images/Grunt2idle.png", 64, 64, 5);
 
 }
 
 void grunt2_collide(Entity*self, Entity *other){
-	if (other->type = 1){
-		if (other->attacking){
+	if (other->type == 1){
+		if (other->attacking && self->forward != other->forward){
 			self->health -= 1;
-			self->position.x += 10;
+			if (self->forward){
+				self->position.x -= 10;
+			}
+			if (!self->forward){
+				self->position.x += 10;
+			}
 		}
 
 	}

@@ -8,7 +8,7 @@ static int walking = 0;
 
 
 void player_think(Entity *self){
-	
+	//slog("%f", self->position.y);
 	player_attack(self);
 	if (!self->attacking){
 		player_move(self);
@@ -20,10 +20,11 @@ Entity *player_new(Vector2D position){
 	Entity *self;
 	self = entity_new();
 
-	self->position = vector2d(600, 350);
+	self->position = vector2d(600, 200);
 	self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
 	self->think = player_think;
 	self->collide = player_collide;
+	self->forward = 1;
 	self->bodyHitbox.x = self->position.x;
 	self->bodyHitbox.y = self->position.y;
 	self->bodyHitbox.w = 64;
@@ -46,13 +47,16 @@ void player_move(Entity *self){
 		self->position.x += 1.5;
 		self->position.y -= 0.5;
 		int walking = 1;
-		//self->sprite = gf2d_sprite_load_all("images/playerWalk.png", 110, 200, 5);
+		self->forward = 1;
+		self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
 		return;
 	}
 	if (buttons[SDL_SCANCODE_RIGHT] && buttons[SDL_SCANCODE_DOWN]){
 		self->position.x += 1.5;
 		self->position.y += 0.5;
 		int walking = 1;
+		self->forward = 1;
+		self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
 		//self->sprite = gf2d_sprite_load_all("images/playerWalk.png", 110, 200, 5);
 		return;
 	}
@@ -60,6 +64,8 @@ void player_move(Entity *self){
 		self->position.x -= 1.5;
 		self->position.y -= 0.5;
 		int walking = 1;
+		self->forward = 0;
+		self->sprite = gf2d_sprite_load_all("images/playerIdleFlip.png", 64, 64, 5);
 		//self->sprite = gf2d_sprite_load_all("images/playerWalk.png", 110, 200, 5);
 		return;
 	}
@@ -67,18 +73,24 @@ void player_move(Entity *self){
 		self->position.x -= 1.5;
 		self->position.y += 0.5;
 		int walking = 1;
+		self->forward = 0;
+		self->sprite = gf2d_sprite_load_all("images/playerIdleFlip.png", 64, 64, 5);
 		//self->sprite = gf2d_sprite_load_all("images/playerWalk.png", 110, 200, 5);
 		return;
 	}
 	if (buttons[SDL_SCANCODE_RIGHT]){
 		self->position.x += 2;
 		int walking = 1;
+		self->forward = 1;
+		self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
 		//self->sprite = gf2d_sprite_load_all("images/playerWalk.png", 110, 200, 5);
 		return;
 	}
 	if (buttons[SDL_SCANCODE_LEFT]){
 		self->position.x -= 2;
 		int walking = 1;
+		self->forward = 0;
+		self->sprite = gf2d_sprite_load_all("images/playerIdleFlip.png", 64, 64, 5);
 		//self->sprite = gf2d_sprite_load_all("images/playerWalk.png", 110, 200, 5);
 		return;
 	}
@@ -98,7 +110,13 @@ void player_move(Entity *self){
 	int walking = 0;
 	self->minFrame = 0;
 	self->maxFrame = 5;
-	self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
+	if (self->forward){
+		self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
+	}
+	else{
+		self->sprite = gf2d_sprite_load_all("images/playerIdleFlip.png", 64, 64, 5);
+	}
+	
 }
 
 void player_attack(Entity *self){

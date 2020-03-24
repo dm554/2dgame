@@ -10,6 +10,7 @@ typedef struct Entity_S
 	Uint8	health;
 	Uint8	reset;
 	Uint8	lastAttack; //Attack1, Attack2
+	Uint8	forward;
 	
 	Sprite	*sprite;
 	

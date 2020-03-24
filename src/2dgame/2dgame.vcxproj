@@ -108,6 +108,7 @@
     <ClInclude Include="..\..\include\gf2d_sprite.h" />
     <ClInclude Include="..\..\include\Grunt.h" />
     <ClInclude Include="..\..\include\Grunt2.h" />
+    <ClInclude Include="..\..\include\Grunt3.h" />
     <ClInclude Include="..\..\include\Level.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Player.h" />
@@ -137,6 +138,7 @@
     <ClCompile Include="..\gf2d_sprite.c" />
     <ClCompile Include="..\Grunt.c" />
     <ClCompile Include="..\Grunt2.c" />
+    <ClCompile Include="..\Grunt3.c" />
     <ClCompile Include="Entity.c" />
     <ClCompile Include="Player.c" />
   </ItemGroup>

@@ -66,8 +66,8 @@ int main(int argc, char * argv[])
 	player1 = player_new(vector2d(1100,1100));
 	grunt1 = grunt_new(player1);
 	grunt2 = grunt_new(player1);
-	grunt3 = grunt_new(player1);
-	grunt4 = grunt2_new(player1);
+	grunt3 = grunt3_new(player1);
+	grunt4 = grunt3_new(player1);
 	grunt5 = grunt2_new(player1);
 	grunt6 = grunt2_new(player1);
 
@@ -98,8 +98,8 @@ int main(int argc, char * argv[])
 				Entity *grunt6;
 				grunt1 = grunt_new(player1);
 				grunt2 = grunt_new(player1);
-				grunt3 = grunt_new(player1);
-				grunt4 = grunt2_new(player1);
+				grunt3 = grunt3_new(player1);
+				grunt4 = grunt3_new(player1);
 				grunt5 = grunt2_new(player1);
 				grunt6 = grunt2_new(player1);
 				level_get_active()->spawnStage = 0;
