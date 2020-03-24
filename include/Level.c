@@ -46,7 +46,7 @@ Uint8 level_bounds_test_circle(Level *level, Vector2D center, float radius, Vect
 	return hit;
 }
 
-Level *level_new(char *backgroundFile, SDL_Rect bounds)
+Level *level_new(char *backgroundFile, SDL_Rect bounds, Uint8 stages)
 {
 	Level *level;
 	if (!backgroundFile)
@@ -59,6 +59,7 @@ Level *level_new(char *backgroundFile, SDL_Rect bounds)
 	level->background = gf2d_sprite_load_image(backgroundFile);
 	level->levelComplete = 0;
 	level->screenCount = 0;
+	level->maxStages = stages;
 	gfc_rect_set(level->bounds, bounds.x, bounds.y, bounds.w, bounds.h);
 	THE_LEVEL = level;
 	return level;
@@ -80,7 +81,7 @@ void level_draw(Level *level)
 
 void level_mover(Level *self, Entity *player){
 
-	if (self ->levelComplete > 5 && player->position.x > 700){
+	if (self ->levelComplete > self->maxStages && player->position.x > 700){
 		self->position.x -= 2;
 		player->position.x -= 2;
 		if (self->screenCount < 500){

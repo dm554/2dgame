@@ -10,6 +10,7 @@ typedef struct
 	Sprite *background;
 	SDL_Rect bounds;
 	Vector2D position;
+	Uint8 maxStages;
 	Uint8 winCon;
 	Uint8 spawnStage; //1,2,3
 	Uint8 levelComplete;

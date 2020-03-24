@@ -71,9 +71,9 @@ int main(int argc, char * argv[])
 	grunt5 = grunt2_new(player1);
 	grunt6 = grunt2_new(player1);
 
-	test = level_new("images/backgrounds/Stage1ss.png", bounds);
+	test = level_new("images/backgrounds/Stage1ss.png", bounds, 4);
 	int screencount = 0;
-	
+	int currentLevel = 1;
 	slog("player ent made");
     /*main game loop*/
     while(!done)
@@ -88,7 +88,7 @@ int main(int argc, char * argv[])
 		level_mover(level_get_active(), player1);
 		if (level_get_active()->spawnStage){
 			slog("spawnstage");
-			if (currentStage < 5){
+			if (currentStage < level_get_active()->maxStages){
 				currentStage++;
 				Entity *grunt1;
 				Entity *grunt2;
@@ -103,6 +103,22 @@ int main(int argc, char * argv[])
 				grunt5 = grunt2_new(player1);
 				grunt6 = grunt2_new(player1);
 				level_get_active()->spawnStage = 0;
+			}
+			if (level_get_active()->maxStages == currentStage){
+				//spawn boss here
+				slog("boss spawn");
+				level_get_active()->spawnStage = 0;
+			}
+		}
+		if (level_get_active()->winCon){
+			currentLevel++;
+			level_free(level_get_active);
+			if (currentLevel == 2){
+				
+				//initialize next level here
+			}
+			if (currentLevel == 3){
+				//initialize next level here
 			}
 		}
 
