@@ -83,10 +83,18 @@ void entity_free(Entity *self)
 void entity_update(Entity *self)
 {
 	if (!self)return;
-	self->frame = self->frame + 0.1;
-	if (self->frame < self->minFrame)self->frame = self->minFrame;
-	if (self->frame > self->maxFrame){ self->frame = self->minFrame; self->reset = 1; }
 	
+	if (!self->attacking || self->forward){
+		self->frame = self->frame + 0.1;
+		if (self->frame < self->minFrame)self->frame = self->minFrame;
+		if (self->frame > self->maxFrame){ self->frame = self->minFrame; self->reset = 1; }
+	}
+	if (self->attacking && !self->forward){
+		self->frame = self->frame - 0.1;
+		if (self->frame > self->maxFrame)self->frame = self->maxFrame;
+		if (self->frame < self->minFrame){ self->frame = self->maxFrame; self->reset = 1; }
+	}
+
 	self->bodyHitbox.x = self->position.x;
 	self->bodyHitbox.y = self->position.y;
 	entity_collide_check(self);

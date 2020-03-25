@@ -126,18 +126,62 @@ void player_attack(Entity *self){
 
 	if (buttons[SDL_SCANCODE_Z]){
 		self->attacking = 1;
-		self->sprite = gf2d_sprite_load_all("images/playerAttack.png", 64, 64, 12);
-		self->minFrame = 56;
-		self->maxFrame = 61;
+		if (self->forward){
+			self->sprite = gf2d_sprite_load_all("images/playerAttack.png", 64, 64, 12);
+			self->minFrame = 56;
+			self->maxFrame = 61;
+		}
+		if (!self->forward){
+			self->sprite = gf2d_sprite_load_all("images/playerAttackFlip.png", 64, 64, 12);
+			self->minFrame = 49;
+			self->maxFrame = 53;
+		}
 		self->lastAttack = 1;
 		return;
 	}
 	if (buttons[SDL_SCANCODE_X]){
 		self->attacking = 1;
-		self->sprite = gf2d_sprite_load_all("images/playerAttack.png", 64, 64, 12);
-		self->minFrame = 104; 
-		self->maxFrame = 114;
+		if (self->forward){
+			self->sprite = gf2d_sprite_load_all("images/playerAttack.png", 64, 64, 12);
+			self->minFrame = 104;
+			self->maxFrame = 112;
+		}
+		if (!self->forward){
+			self->sprite = gf2d_sprite_load_all("images/playerAttackFlip.png", 64, 64, 12);
+			self->minFrame = 96;
+			self->maxFrame = 102;
+		}
 		self->lastAttack = 2;
+		return;
+	}
+	if (buttons[SDL_SCANCODE_C]){
+		self->attacking = 1;
+		if (self->forward){
+			self->sprite = gf2d_sprite_load_all("images/playerAttack.png", 64, 64, 12);
+			self->minFrame = 95;
+			self->maxFrame = 104;
+		}
+		if (!self->forward){
+			self->sprite = gf2d_sprite_load_all("images/playerAttackFlip.png", 64, 64, 12);
+			self->minFrame = 102;
+			self->maxFrame = 108;
+		}
+		self->lastAttack = 3;
+		return;
+	}
+	if (buttons[SDL_SCANCODE_V]){
+		self->attacking = 1;
+		if (self->forward){
+			self->sprite = gf2d_sprite_load_all("images/playerAttack.png", 64, 64, 12);
+			self->minFrame = 84;
+			self->maxFrame = 93;
+		}
+		if (!self->forward){
+			self->sprite = gf2d_sprite_load_all("images/playerAttackFlip.png", 64, 64, 12);
+			self->minFrame = 88;
+			self->maxFrame = 95;
+		}
+		self->lastAttack = 4;
 		return;
 	}
 
@@ -146,7 +190,12 @@ void player_attack(Entity *self){
 	self->reset = 0;
 	self->minFrame = 0;
 	self->maxFrame = 5;
-	self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
+	if (self->forward){
+		self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
+	}
+	else{
+		self->sprite = gf2d_sprite_load_all("images/playerIdleFlip.png", 64, 64, 5);
+	}
 	return;
 }
 
