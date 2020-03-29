@@ -59,6 +59,7 @@ Level *level_new(char *backgroundFile, SDL_Rect bounds, Uint8 stages)
 	level->background = gf2d_sprite_load_image(backgroundFile);
 	level->levelComplete = 0;
 	level->screenCount = 0;
+	level->currentStage = 1;
 	level->maxStages = stages;
 	gfc_rect_set(level->bounds, bounds.x, bounds.y, bounds.w, bounds.h);
 	THE_LEVEL = level;

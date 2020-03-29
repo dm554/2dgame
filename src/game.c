@@ -43,6 +43,7 @@ int main(int argc, char * argv[])
 	Entity *box;
 	Uint8 currentStage;
 	Level *test;
+	Level *level2;
 	SDL_Rect bounds = { 0, 0, 1200, 720 };
     /*program initializtion*/
     init_logger("gf2d.log");
@@ -73,7 +74,7 @@ int main(int argc, char * argv[])
 	grunt6 = grunt2_new(player1);
 	box = box_new();
 
-	test = level_new("images/backgrounds/Stage1ss.png", bounds, 4);
+	test = level_new("images/backgrounds/Stage1ss.png", bounds, 5);
 	int screencount = 0;
 	int currentLevel = 1;
 	slog("player ent made");
@@ -90,8 +91,14 @@ int main(int argc, char * argv[])
 		level_mover(level_get_active(), player1);
 		if (level_get_active()->spawnStage){
 			slog("spawnstage");
-			if (currentStage < level_get_active()->maxStages){
-				currentStage++;
+			if (level_get_active()->maxStages == level_get_active()->currentStage){
+				//spawn boss here
+				slog("boss spawn");
+				level_get_active()->spawnStage = 0;
+				level_get_active()->winCon = 1;
+			}
+			if (level_get_active()->currentStage < level_get_active()->maxStages){
+				level_get_active()->currentStage++;
 				Entity *grunt1;
 				Entity *grunt2;
 				Entity *grunt3;
@@ -108,17 +115,14 @@ int main(int argc, char * argv[])
 				box = box_new();
 				level_get_active()->spawnStage = 0;
 			}
-			if (level_get_active()->maxStages == currentStage){
-				//spawn boss here
-				slog("boss spawn");
-				level_get_active()->spawnStage = 0;
-			}
+
 		}
 		if (level_get_active()->winCon){
 			currentLevel++;
-			level_free(level_get_active);
+			level_free(level_get_active());
 			if (currentLevel == 2){
-				
+				level2 = level_new("images/backgrounds/Stage2.png", bounds, 4);
+				level_get_active()->spawnStage = 1;
 				//initialize next level here
 			}
 			if (currentLevel == 3){
@@ -130,7 +134,7 @@ int main(int argc, char * argv[])
         gf2d_graphics_clear_screen();// clears drawing buffers
         // all drawing should happen betweem clear_screen and next_frame
             //backgrounds drawn first
-		level_draw(test);
+		level_draw(level_get_active());
             //gf2d_sprite_draw_image(sprite,vector2d(0,0));
 			//entities second
 			entity_draw_all();
