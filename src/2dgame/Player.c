@@ -263,6 +263,9 @@ void player_health_image_set(Vector2D healthicons, Vector2D tenPosition, Vector2
 	case 9:
 		tensPath = "images/UI/Nums/9.png";
 		break;
+	case 0:
+		tensPath = "images/UI/Nums/0.png";
+		break;
 	}
 
 	switch (ones){
@@ -292,6 +295,9 @@ void player_health_image_set(Vector2D healthicons, Vector2D tenPosition, Vector2
 		break;
 	case 9:
 		onesPath = "images/UI/Nums/9.png";
+		break;
+	case 0:
+		onesPath = "images/UI/Nums/0.png";
 		break;
 	}
 

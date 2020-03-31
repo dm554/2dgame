@@ -5,6 +5,7 @@
 #include "simple_logger.h"
 #include "Player.h"
 #include "Level.h"
+#include "Axel.h"
 #include <SDL_image.h>
 #include <stdlib.h>
 
@@ -78,7 +79,7 @@ int main(int argc, char * argv[])
 	grunt6 = grunt2_new(player1);
 	box = box_new();
 
-	test = level_new("images/backgrounds/Stage1ss.png", bounds, 5);
+	test = level_new("images/backgrounds/Stage1ss.png", bounds, 2);//was at 5
 	int screencount = 0;
 	int currentLevel = 1;
 	slog("player ent made");
@@ -99,7 +100,10 @@ int main(int argc, char * argv[])
 				//spawn boss here
 				slog("boss spawn");
 				level_get_active()->spawnStage = 0;
-				level_get_active()->winCon = 1;
+				if (currentLevel == 1){
+					Entity *boss1;
+					boss1 = axel_new(player1);
+				}
 			}
 			if (level_get_active()->currentStage < level_get_active()->maxStages){
 				level_get_active()->currentStage++;

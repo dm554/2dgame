@@ -19,7 +19,7 @@ Entity *axel_new(Entity *target){
 	self->bodyHitbox.y = self->position.y;
 	self->bodyHitbox.w = 160;
 	self->bodyHitbox.h = 200;
-	self->minFrame = 0;
+	self->minFrame = 1;
 	self->maxFrame = 11;
 	self->attacking = 0;
 	self->type = 2;
@@ -44,7 +44,7 @@ void axel_move(Entity *self, Entity *target){
 
 	if (self->position.x > target->position.x){
 		self->forward = 0;
-		self->sprite = gf2d_sprite_load_all("images/playerSprite2.png", 160, 200, 5);
+		self->sprite = gf2d_sprite_load_all("images/playerSprite2Flip.png", 160, 200, 5);
 	}
 	if (self->position.x < target->position.x){
 		self->forward = 1;
@@ -89,12 +89,17 @@ void axel_attack(Entity *self){
 		return;
 	}
 
-	self->minFrame = 0;
-	self->maxFrame = 12;
+	self->minFrame = 6;
+	self->maxFrame = 10;
 	
 	if (attackTimer < 240){
 		self->attacking = 1;
-		self->sprite = gf2d_sprite_load_all("images/playerHit.png", 188, 248, 5);
+		if (self->forward){
+			self->sprite = gf2d_sprite_load_all("images/playerHit.png", 188, 248, 5);
+		}
+		if (!self->forward){
+			self->sprite = gf2d_sprite_load_all("images/playerHitFlip.png", 188, 248, 5);
+		}
 		self->bodyHitbox.w = 188;
 		self->bodyHitbox.h = 248;
 		attackTimer++;
@@ -119,13 +124,16 @@ void axel_collide(Entity*self, Entity *other){
 	if (other->type == 1 && self->forward != other->forward){
 		if (other->attacking){
 			self->health -= 1;
+		}
+		if (other->type == 1 && self->attacking){
 			if (self->forward){
-				self->position.x -= 10;
+				other->position.x += 30;
+				other->position.y -= 40;
 			}
 			if (!self->forward){
-				self->position.x += 10;
+				other->position.x -= 30;
+				other->position.y -= 40;
 			}
 		}
-
 	}
 }
