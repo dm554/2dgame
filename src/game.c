@@ -26,6 +26,9 @@ int main(int argc, char * argv[])
     int done = 0;
     const Uint8 * keys;
     Sprite *sprite;
+	Sprite *healthbar;
+	Sprite *healthicon;
+
     
     int mx,my;
     float mf = 0;
@@ -64,6 +67,7 @@ int main(int argc, char * argv[])
     /*demo setup*/
     //sprite = gf2d_sprite_load_image("images/backgrounds/Stage1ss.png");
     mouse = gf2d_sprite_load_all("images/pointer.png",32,32,16);
+	healthbar = gf2d_sprite_load_image("images/ui/healthbackground.png");
 	
 	player1 = player_new(vector2d(1100,1100));
 	grunt1 = grunt_new(player1);
@@ -148,6 +152,9 @@ int main(int argc, char * argv[])
                 NULL,
                 &mouseColor,
                 (int)mf);
+			//Health UI
+		gf2d_sprite_draw_image(healthbar, vector2d(400, 400));
+		player_health_display(player1);
         gf2d_grahics_next_frame();// render current draw frame and skip to the next frame
 		
         if (keys[SDL_SCANCODE_ESCAPE])done = 1; // exit condition

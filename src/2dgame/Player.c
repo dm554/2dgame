@@ -6,6 +6,8 @@
 
 static int walking = 0;
 
+Sprite* digit1;
+Sprite* digit2;
 
 void player_think(Entity *self){
 	//slog("%f", self->position.y);
@@ -33,7 +35,7 @@ Entity *player_new(Vector2D position){
 	self->maxFrame = 5;
 	self->attacking = 0;
 	self->type = 1;
-	self->health = 0;
+	self->health = 99;
 	
 	return self;
 }
@@ -214,5 +216,95 @@ void player_collide(Entity *self, Entity *other){
 		}
 	}
 */
+}
+
+Vector2D player_get_health(Entity* self){
+	slog("get health");
+	int ones = self->health % 10;
+	int tens = (self->health - ones) / 10;
+
+	Vector2D healthIcons = vector2d(tens, ones);
+	return(healthIcons);
+}
+
+void player_health_image_set(Vector2D healthicons, Vector2D tenPosition, Vector2D onesPosition){
+	slog("image set");
+	int tens = healthicons.x;
+	int ones = healthicons.y;
+
+	char *tensPath;
+	char *onesPath;
+
+	switch (tens){
+	case 1:
+		tensPath = "images/UI/Nums/1.png";
+		break;
+	case 2:
+		tensPath = "images/UI/Nums/2.png";
+		break;
+	case 3:
+		tensPath = "images/UI/Nums/3.png";
+		break;
+	case 4:
+		tensPath = "images/UI/Nums/4.png";
+		break;
+	case 5:
+		tensPath = "images/UI/Nums/5.png";
+		break;
+	case 6:
+		tensPath = "images/UI/Nums/6.png";
+		break;
+	case 7:
+		tensPath = "images/UI/Nums/7.png";
+		break;
+	case 8:
+		tensPath = "images/UI/Nums/8.png";
+		break;
+	case 9:
+		tensPath = "images/UI/Nums/9.png";
+		break;
+	}
+
+	switch (ones){
+	case 1:
+		onesPath = "images/UI/Nums/1.png";
+		break;
+	case 2:
+		onesPath = "images/UI/Nums/2.png";
+		break;
+	case 3:
+		onesPath = "images/UI/Nums/3.png";
+		break;
+	case 4:
+		onesPath = "images/UI/Nums/4.png";
+		break;
+	case 5:
+		onesPath = "images/UI/Nums/5.png";
+		break;
+	case 6:
+		onesPath = "images/UI/Nums/6.png";
+		break;
+	case 7:
+		onesPath = "images/UI/Nums/7.png";
+		break;
+	case 8:
+		onesPath = "images/UI/Nums/8.png";
+		break;
+	case 9:
+		onesPath = "images/UI/Nums/9.png";
+		break;
+	}
+
+	
+	digit1 = gf2d_sprite_load_image(tensPath);
+	digit2 = gf2d_sprite_load_image(onesPath);
+	
+	gf2d_sprite_draw_image(digit1, tenPosition);
+	gf2d_sprite_draw_image(digit2, onesPosition);
+}
+
+void player_health_display(Entity* self){
+	slog("health display");
+	player_health_image_set(player_get_health(self), vector2d(500, 400), vector2d(550, 400));
 }
 

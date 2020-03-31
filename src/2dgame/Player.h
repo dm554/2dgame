@@ -15,4 +15,10 @@ void player_attacked(Entity *self);
 
 void player_collide(Entity*self, Entity *other);
 
+Vector2D player_get_health(Entity* self);
+
+void player_health_image_set(Vector2D healthicons, Vector2D tenPosition, Vector2D onesPosition);
+
+void player_health_display(Entity* self);
+
 #endif
