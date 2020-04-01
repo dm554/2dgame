@@ -103,6 +103,7 @@
     <ClInclude Include="..\..\gfc\simple_json\include\simple_json_value.h" />
     <ClInclude Include="..\..\gfc\simple_logger\include\simple_logger.h" />
     <ClInclude Include="..\..\include\Axel.h" />
+    <ClInclude Include="..\..\include\boss3.h" />
     <ClInclude Include="..\..\include\box.h" />
     <ClInclude Include="..\..\include\Collider.h" />
     <ClInclude Include="..\..\include\gf2d_draw.h" />
@@ -111,6 +112,7 @@
     <ClInclude Include="..\..\include\Grunt.h" />
     <ClInclude Include="..\..\include\Grunt2.h" />
     <ClInclude Include="..\..\include\Grunt3.h" />
+    <ClInclude Include="..\..\include\ironboss.h" />
     <ClInclude Include="..\..\include\Level.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Player.h" />
@@ -132,6 +134,7 @@
     <ClCompile Include="..\..\gfc\src\gfc_text.c" />
     <ClCompile Include="..\..\gfc\src\gfc_types.c" />
     <ClCompile Include="..\..\gfc\src\gfc_vector.c" />
+    <ClCompile Include="..\..\include\boss3.c" />
     <ClCompile Include="..\..\include\Level.c" />
     <ClCompile Include="..\Axel.c" />
     <ClCompile Include="..\box.c" />
@@ -143,6 +146,7 @@
     <ClCompile Include="..\Grunt.c" />
     <ClCompile Include="..\Grunt2.c" />
     <ClCompile Include="..\Grunt3.c" />
+    <ClCompile Include="..\ironboss.c" />
     <ClCompile Include="Entity.c" />
     <ClCompile Include="Player.c" />
   </ItemGroup>

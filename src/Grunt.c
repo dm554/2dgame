@@ -15,14 +15,14 @@ Entity *grunt_new(Entity *target){
 	Vector2D oppspawn;
 
 
-	Vector2D spawn1 = vector2d(-400, 800);
-	Vector2D spawn2 = vector2d(-500, 500);
-	Vector2D spawn3 = vector2d(-600, 200);
-	Vector2D spawn4 = vector2d(-700, 450);
-	Vector2D spawn5 = vector2d(1000, 400);
-	Vector2D spawn6 = vector2d(750, 600);
-	Vector2D spawn7 = vector2d(350, 700);
-	Vector2D spawn8 = vector2d(500, 500);
+	Vector2D spawn1 = vector2d(-700, 800);
+	Vector2D spawn2 = vector2d(-800, 500);
+	Vector2D spawn3 = vector2d(-750, 600);
+	Vector2D spawn4 = vector2d(-1000, 450);
+	Vector2D spawn5 = vector2d(1125, 400);
+	Vector2D spawn6 = vector2d(1000, 600);
+	Vector2D spawn7 = vector2d(1200, 700);
+	Vector2D spawn8 = vector2d(800, 500);
 
 	switch (randomspawns){
 		case 1:
@@ -138,12 +138,19 @@ void grunt_attack(Entity *self){
 		return;
 	}
 	
-	self->minFrame = 56;
-	self->maxFrame = 61;
-
 	if (attackTimer < 120){
 		self->attacking = 1;
-		self->sprite = gf2d_sprite_load_all("images/Grunt1attack.png", 64, 64, 12);
+		
+		if (self->forward){
+			self->sprite = gf2d_sprite_load_all("images/Grunt1attack.png", 64, 64, 12);
+			self->minFrame = 56;
+			self->maxFrame = 61;
+		}
+		if (!self->forward){
+			self->sprite = gf2d_sprite_load_all("images/Grunt1attackflip.png", 64, 64, 12);
+			self->minFrame = 49;
+			self->maxFrame = 53;
+		}
 		attackTimer++;
 		return;
 	}
@@ -157,16 +164,62 @@ void grunt_attack(Entity *self){
 }
 
 void grunt_collide(Entity*self, Entity *other){
-	if (other->type == 1 && self->forward != other->forward){
-		if (other->attacking){
-			self->health -= 1;
-			if (self->forward){
-				self->position.x -= 10;
+	if (other->type == 1){
+		if (other->attacking && self->forward != other->forward){
+
+			if (other->lastAttack == 1){
+				self->health -= 1;
+				if (self->forward){
+					self->position.x -= 10;
+				}
+				if (!self->forward){
+					self->position.x += 10;
+				}
 			}
-			if (!self->forward){
-				self->position.x += 10;
+
+			if (other->lastAttack == 2){
+				self->health -= 1;
+				if (self->forward){
+					self->position.x -= 10;
+					self->position.y -= 15;
+				}
+				if (!self->forward){
+					self->position.x += 10;
+					self->position.y -= 15;
+				}
+			}
+
+			if (other->lastAttack == 3){
+				self->health -= 1;
+				if (self->forward){
+					self->position.x -= 25;
+				}
+				if (!self->forward){
+					self->position.x += 25;
+				}
+			}
+
+			if (other->lastAttack == 4){
+				self->health -= 1;
+				if (self->forward){
+					self->position.x -= 10;
+					self->position.y += 15;
+				}
+				if (!self->forward){
+					self->position.x += 10;
+					self->position.y += 15;
+				}
+			}
+
+			if (other->lastAttack == 1){
+				self->health -= 1;
+				if (self->forward){
+					self->position.x -= 10;
+				}
+				if (!self->forward){
+					self->position.x += 10;
+				}
 			}
 		}
-		
 	}
 }

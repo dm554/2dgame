@@ -6,6 +6,8 @@
 #include "Player.h"
 #include "Level.h"
 #include "Axel.h"
+#include "boss3.h"
+#include "ironboss.h"
 #include <SDL_image.h>
 #include <stdlib.h>
 
@@ -48,6 +50,7 @@ int main(int argc, char * argv[])
 	Uint8 currentStage;
 	Level *test;
 	Level *level2;
+	Level *level3;
 	SDL_Rect bounds = { 0, 0, 1200, 720 };
     /*program initializtion*/
     init_logger("gf2d.log");
@@ -104,6 +107,14 @@ int main(int argc, char * argv[])
 					Entity *boss1;
 					boss1 = axel_new(player1);
 				}
+				if (currentLevel == 2){
+					Entity *boss2;
+					boss2 = iron_new(player1);
+				}
+				if (currentLevel == 3){
+					Entity *boss3;
+					boss3 = boss3_new(player1);
+				}
 			}
 			if (level_get_active()->currentStage < level_get_active()->maxStages){
 				level_get_active()->currentStage++;
@@ -129,11 +140,15 @@ int main(int argc, char * argv[])
 			currentLevel++;
 			level_free(level_get_active());
 			if (currentLevel == 2){
-				level2 = level_new("images/backgrounds/Stage2.png", bounds, 4);
+				level2 = level_new("images/backgrounds/Stage2.png", bounds, 2);//4
 				level_get_active()->spawnStage = 1;
+				player1->health += 40;
 				//initialize next level here
 			}
 			if (currentLevel == 3){
+				level3 = level_new("images/backgrounds/Stage3.png", bounds, 1);
+				level_get_active()->spawnStage = 1;
+				player1->health += 30;
 				//initialize next level here
 			}
 		}
@@ -157,7 +172,7 @@ int main(int argc, char * argv[])
                 &mouseColor,
                 (int)mf);
 			//Health UI
-		gf2d_sprite_draw_image(healthbar, vector2d(400, 400));
+		gf2d_sprite_draw_image(healthbar, vector2d(0, 10));
 		player_health_display(player1);
         gf2d_grahics_next_frame();// render current draw frame and skip to the next frame
 		

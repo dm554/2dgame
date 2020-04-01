@@ -203,23 +203,13 @@ void player_attack(Entity *self){
 
 void player_collide(Entity *self, Entity *other){
 	
-	/*if (other->type = 2 && self->attacking){
-		//vector2d_set(other->velocity, 1, 1);
-		if (self->lastAttack = 1){
-			other->position.x += 10;
-			other->health -= 1;
-		}
-		if (self->lastAttack = 2){
-			other->position.x += 15;
-			other->position.y += 10;
-			other->health -= 2;
-		}
+	if (other->attacking && self->health > 0){
+		self->health -= 0.01;
 	}
-*/
 }
 
 Vector2D player_get_health(Entity* self){
-	slog("get health");
+	//slog("get health");
 	int ones = self->health % 10;
 	int tens = (self->health - ones) / 10;
 
@@ -228,7 +218,7 @@ Vector2D player_get_health(Entity* self){
 }
 
 void player_health_image_set(Vector2D healthicons, Vector2D tenPosition, Vector2D onesPosition){
-	slog("image set");
+	//slog("image set");
 	int tens = healthicons.x;
 	int ones = healthicons.y;
 
@@ -310,7 +300,7 @@ void player_health_image_set(Vector2D healthicons, Vector2D tenPosition, Vector2
 }
 
 void player_health_display(Entity* self){
-	slog("health display");
-	player_health_image_set(player_get_health(self), vector2d(500, 400), vector2d(550, 400));
+	//slog("health display");
+	player_health_image_set(player_get_health(self), vector2d(150, 25), vector2d(190, 25));
 }
 
