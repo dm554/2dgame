@@ -80,7 +80,7 @@ int main(int argc, char * argv[])
 	grunt4 = grunt3_new(player1);
 	grunt5 = grunt2_new(player1);
 	grunt6 = grunt2_new(player1);
-	box = box_new();
+	//box = box_new();
 
 	test = level_new("images/backgrounds/Stage1ss.png", bounds, 2);//was at 5
 	int screencount = 0;
@@ -124,14 +124,14 @@ int main(int argc, char * argv[])
 				Entity *grunt4;
 				Entity *grunt5;
 				Entity *grunt6;
-				Entity *box;
+				//Entity *box;
 				grunt1 = grunt_new(player1);
 				grunt2 = grunt_new(player1);
 				grunt3 = grunt3_new(player1);
 				grunt4 = grunt3_new(player1);
 				grunt5 = grunt2_new(player1);
 				grunt6 = grunt2_new(player1);
-				box = box_new();
+				//box = box_new();
 				level_get_active()->spawnStage = 0;
 			}
 

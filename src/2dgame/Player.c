@@ -22,7 +22,7 @@ Entity *player_new(Vector2D position){
 	Entity *self;
 	self = entity_new();
 
-	self->position = vector2d(600, 200);
+	self->position = vector2d(600, 500);
 	self->sprite = gf2d_sprite_load_all("images/playerIdle.png", 64, 64, 5);
 	self->think = player_think;
 	self->collide = player_collide;
@@ -44,7 +44,9 @@ void player_move(Entity *self){
 
 	Uint8 *buttons = SDL_GetKeyboardState(NULL);
 	vector2d_set(self->velocity, 1, 1);
-
+	if (self->position.y < 400){
+		self->position.y += 2;
+	}
 	if (buttons[SDL_SCANCODE_RIGHT] && buttons[SDL_SCANCODE_UP]){
 		self->position.x += 1.5;
 		self->position.y -= 0.5;
@@ -204,7 +206,7 @@ void player_attack(Entity *self){
 void player_collide(Entity *self, Entity *other){
 	
 	if (other->attacking && self->health > 0){
-		self->health -= 0.01;
+		self->health -= 0.0001;
 	}
 }
 
