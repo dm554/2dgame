@@ -80,6 +80,16 @@ void entity_free(Entity *self)
 	
 }
 
+void entity_free_all(){
+	
+	int i;
+	for (i = 0; i < entity_manager.maxEnts; i++)
+	{
+		if (!entity_manager.entityList[i]._inuse)continue;
+		entity_free(&entity_manager.entityList[i]);
+	}
+}
+
 void entity_update(Entity *self)
 {
 	if (!self)return;

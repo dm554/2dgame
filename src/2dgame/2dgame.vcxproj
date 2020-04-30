@@ -114,6 +114,8 @@
     <ClInclude Include="..\..\include\Grunt3.h" />
     <ClInclude Include="..\..\include\ironboss.h" />
     <ClInclude Include="..\..\include\Level.h" />
+    <ClInclude Include="..\..\include\Menu.h" />
+    <ClInclude Include="..\..\include\UIElement.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
@@ -147,6 +149,8 @@
     <ClCompile Include="..\Grunt2.c" />
     <ClCompile Include="..\Grunt3.c" />
     <ClCompile Include="..\ironboss.c" />
+    <ClCompile Include="..\Menu.c" />
+    <ClCompile Include="..\UIElement.c" />
     <ClCompile Include="Entity.c" />
     <ClCompile Include="Player.c" />
   </ItemGroup>

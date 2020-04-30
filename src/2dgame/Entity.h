@@ -38,7 +38,7 @@ Entity *entity_new();
 
 void entity_manager_init(Uint32 maxEnts);
 void entity_free(Entity *self);
-
+void entity_free_all();
 void entity_update_all();
 void entity_draw_all();
 void entity_collide_check(Entity *self);
