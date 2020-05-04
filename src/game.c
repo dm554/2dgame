@@ -6,6 +6,8 @@
 #include "Player.h"
 #include "Level.h"
 #include "Axel.h"
+#include "Menu.h"
+#include "MainMenu.h"
 #include "boss3.h"
 #include "ironboss.h"
 #include <SDL_image.h>
@@ -24,15 +26,13 @@ Entity *newEnt(){
 	return self;
 }
 
-void SceneController(int sceneNo){
+void SceneController(int sceneNo, Menu *menu){
 	
 	switch (sceneNo)
 	{
 	//Main Menu
 	case 1:
 		genUpdates = 0;
-		level_free(level_get_active());
-		entity_free_all();
 		//create menu object here
 		break;
 	//In Game
@@ -110,6 +110,9 @@ int main(int argc, char * argv[])
 	test = level_new("images/backgrounds/Stage1ss.png", bounds, 2);//was at 5
 	int screencount = 0;
 	int currentLevel = 1;
+	Menu *mainmen;
+	mainmen = main_menu_new("images/ui/mainmenu/menu.png", "images/ui/smallarrow.png");
+	SceneController(1, mainmen);
 	slog("player ent made");
     /*main game loop*/
     while(!done)
@@ -121,6 +124,7 @@ int main(int argc, char * argv[])
         mf+=0.1;
         if (mf >= 16.0)mf = 0;
         
+		slog("genupdates if");
 		if (genUpdates){
 			//////////////////////////////////////////////Level Controller//////////////////////////////////////////////////
 			level_mover(level_get_active(), player1);
@@ -183,12 +187,13 @@ int main(int argc, char * argv[])
 
 			entity_update_all();
 		}
-        
+		slog("genupdates end");
 		gf2d_graphics_clear_screen();// clears drawing buffers
         // all drawing should happen betweem clear_screen and next_frame
             //backgrounds drawn first
-		
+		//menu_draw(menu_get_active());
 		if (genUpdates){
+			slog("gen2");
 			level_draw(level_get_active());
 			//gf2d_sprite_draw_image(sprite,vector2d(0,0));
 			//entities second
@@ -206,13 +211,18 @@ int main(int argc, char * argv[])
 			//Health UI
 			gf2d_sprite_draw_image(healthbar, vector2d(0, 10));
 			player_health_display(player1);
+			slog("gen2 done");
 		}
-        gf2d_grahics_next_frame();// render current draw frame and skip to the next frame
-		
+		slog("pre menu update");
+		menu_update(mainmen);
+		slog("post menu update");
+		gf2d_grahics_next_frame();// render current draw frame and skip to the next frame
+		slog("next frame");
 		//draw menus here
-
+		//menu_update(mainmen);
         if (keys[SDL_SCANCODE_ESCAPE])done = 1; // exit condition
         //slog("Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
+		slog("done");
     }
     slog("---==== END ====---");
     return 0;

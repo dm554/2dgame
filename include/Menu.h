@@ -1,5 +1,8 @@
 #include "gf2d_sprite.h"
 #include "Entity.h"
+#include "gf2d_graphics.h"
+#include "gf2d_draw.h"
+
 #ifndef __MENU_H__
 #define __MENU_H__
 
@@ -21,13 +24,14 @@ typedef struct menu_S
 	Vector2D cursorPoint_3;
 
 	
-	void(*option)(int optionNo);
+	void(*think)(Menu);
 	
 
 }Menu;
 
+static Menu *THE_MENU;
 Menu *menu_new();
-
+Menu *menu_get_active();
 void menu_free(Menu *self);
 void menu_draw(Menu *self);
 void cursor_handler();

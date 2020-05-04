@@ -206,7 +206,7 @@ void player_attack(Entity *self){
 void player_collide(Entity *self, Entity *other){
 	
 	if (other->attacking && self->health > 0){
-		self->health -= 0.0001;
+		self->health -= 0.000000001;
 	}
 }
 

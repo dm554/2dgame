@@ -3,13 +3,17 @@
 #include "simple_logger.h"
 #include "Menu.h"
 #include "gf2d_draw.h"
+#include "gf2d_sprite.h"
 #include "gfc_types.h"
 
-
-void menu_update(Menu *self, Entity *player){
+static Menu *THE_MENU = NULL;
+static int cursorTimer = 0;
+void menu_update(Menu *self){
+	slog("cursor handler");
 	cursor_handler(self);
+	slog("draw");
 	menu_draw(self);
-	self->option(self->select);
+	//self->think(*self);
 }
 
 void cursor_handler(Menu *self){
@@ -39,6 +43,10 @@ void cursor_handler(Menu *self){
 }
 
 void cursor_set_position(Menu *self){
+	if (cursorTimer < 10){
+		cursorTimer++;
+		return;
+	}
 	switch (self->cursorPoint){
 		case 1:
 			self->cursorPostion = self->cursorPoint_1;
@@ -50,6 +58,7 @@ void cursor_set_position(Menu *self){
 			self->cursorPostion = self->cursorPoint_3;
 			break;
 	}
+	cursorTimer = 0;
 }
 
 void cursor_option_select(Menu *self){
@@ -69,6 +78,8 @@ void cursor_option_select(Menu *self){
 }
 
 void menu_draw(Menu *self){
+	slog("drawing");
+	if (!self)return;
 	gf2d_sprite_draw_image(self->backsprite, self->backPosition);
 	gf2d_sprite_draw_image(self->cursorSprite, self->cursorPostion);
 }
@@ -77,4 +88,8 @@ void menu_free(Menu *self){
 	gf2d_sprite_free(self->backsprite);
 	gf2d_sprite_free(self->cursorSprite);
 	memset(self, 0, sizeof(Menu));
+}
+
+Menu *menu_get_active(){
+	return THE_MENU;
 }
