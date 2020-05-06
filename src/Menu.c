@@ -8,12 +8,14 @@
 
 static Menu *THE_MENU = NULL;
 static int cursorTimer = 0;
+static int genUpdates = 0;
+
 void menu_update(Menu *self){
 	slog("cursor handler");
 	cursor_handler(self);
 	slog("draw");
 	menu_draw(self);
-	//self->think(*self);
+	self->think(self);
 }
 
 void cursor_handler(Menu *self){
@@ -90,6 +92,37 @@ void menu_free(Menu *self){
 	memset(self, 0, sizeof(Menu));
 }
 
+void menu_set_active(Menu *activeMenu){
+	THE_MENU = activeMenu;
+}
+
 Menu *menu_get_active(){
 	return THE_MENU;
+}
+
+int get_genUpdates(){
+	return genUpdates;
+}
+
+void SceneController(int sceneNo, Menu *menu){
+
+	switch (sceneNo)
+	{
+		//Main Menu
+	case 1:
+		genUpdates = 0;
+		//create menu object here
+		break;
+		//In Game
+	case 2:
+		genUpdates = 1;
+		slog("gen1");
+		break;
+		//Pause Menu
+	case 3:
+		genUpdates = 0;
+		//create menu object here
+		break;
+	}
+
 }

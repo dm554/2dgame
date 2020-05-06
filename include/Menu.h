@@ -24,12 +24,14 @@ typedef struct menu_S
 	Vector2D cursorPoint_3;
 
 	
-	void(*think)(Menu);
+	void(*think)(struct  menu_S *self);
 	
 
 }Menu;
 
 static Menu *THE_MENU;
+static int genUpdates;
+
 Menu *menu_new();
 Menu *menu_get_active();
 void menu_free(Menu *self);
@@ -38,6 +40,8 @@ void cursor_handler();
 void cursor_set_position(Menu *self);
 void cursor_option_select(Menu *self);
 void menu_update(Menu *self);
-
+void menu_set_active(Menu *activeMenu);
+int get_genUpdates();
+void SceneController(int sceneNo, Menu *menu);
 
 #endif

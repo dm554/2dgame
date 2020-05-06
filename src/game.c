@@ -13,7 +13,7 @@
 #include <SDL_image.h>
 #include <stdlib.h>
 
-static int genUpdates = 1;
+//static int genUpdates = 0;
 //creates a function of data type Entity
 Entity *newEnt(){
 	Entity *self;
@@ -26,27 +26,7 @@ Entity *newEnt(){
 	return self;
 }
 
-void SceneController(int sceneNo, Menu *menu){
-	
-	switch (sceneNo)
-	{
-	//Main Menu
-	case 1:
-		genUpdates = 0;
-		//create menu object here
-		break;
-	//In Game
-	case 2:
-		genUpdates = 1;
-		break;
-	//Pause Menu
-	case 3: 
-		genUpdates = 0;
-		//create menu object here
-		break;
-	}
-	
-}
+//menu controller
 
 int main(int argc, char * argv[])
 {
@@ -124,8 +104,8 @@ int main(int argc, char * argv[])
         mf+=0.1;
         if (mf >= 16.0)mf = 0;
         
-		slog("genupdates if");
-		if (genUpdates){
+		//slog("genupdates if");
+		if (get_genUpdates() > 0){
 			//////////////////////////////////////////////Level Controller//////////////////////////////////////////////////
 			level_mover(level_get_active(), player1);
 			if (level_get_active()->spawnStage){
@@ -187,13 +167,11 @@ int main(int argc, char * argv[])
 
 			entity_update_all();
 		}
-		slog("genupdates end");
 		gf2d_graphics_clear_screen();// clears drawing buffers
         // all drawing should happen betweem clear_screen and next_frame
             //backgrounds drawn first
 		//menu_draw(menu_get_active());
-		if (genUpdates){
-			slog("gen2");
+		if (get_genUpdates() > 0){
 			level_draw(level_get_active());
 			//gf2d_sprite_draw_image(sprite,vector2d(0,0));
 			//entities second
@@ -211,18 +189,19 @@ int main(int argc, char * argv[])
 			//Health UI
 			gf2d_sprite_draw_image(healthbar, vector2d(0, 10));
 			player_health_display(player1);
-			slog("gen2 done");
 		}
-		slog("pre menu update");
-		menu_update(mainmen);
-		slog("post menu update");
+
+		if (get_genUpdates() < 1){
+			menu_update(menu_get_active());
+		}
+
 		gf2d_grahics_next_frame();// render current draw frame and skip to the next frame
-		slog("next frame");
+
 		//draw menus here
 		//menu_update(mainmen);
         if (keys[SDL_SCANCODE_ESCAPE])done = 1; // exit condition
         //slog("Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
-		slog("done");
+
     }
     slog("---==== END ====---");
     return 0;

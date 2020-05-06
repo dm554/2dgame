@@ -18,8 +18,8 @@ Menu *main_menu_new(char *background, char *cursor){
 	self->backsprite = gf2d_sprite_load_image("images/ui/mainmenu/menu.png");
 	self->cursorSprite = gf2d_sprite_load_image("images/ui/smallarrow.png");
 	slog("Menu made");
-	THE_MENU = self;
-	return THE_MENU;
+	menu_set_active(self);
+	return self;
 	
 }
 
@@ -46,8 +46,10 @@ void main_menu_option_select(int select, Menu *self){
 }
 
 void main_menu_option_1(Menu *self){
-	SceneController(2);
-	menu_free(self);
+	self->select = 0;
+	SceneController(2, self);
+	slog("scene changed");
+	//menu_free(menu_get_active());
 }
 
 void main_menu_option_2(Menu *self){
