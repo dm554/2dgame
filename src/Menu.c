@@ -2,12 +2,15 @@
 #include <stdlib.h>
 #include "simple_logger.h"
 #include "Menu.h"
+#include "MainMenu.h"
 #include "gf2d_draw.h"
 #include "gf2d_sprite.h"
 #include "gfc_types.h"
+#include "PauseMenu.h"
 
 static Menu *THE_MENU = NULL;
 static int cursorTimer = 0;
+static int buttonTimer = 0;
 static int genUpdates = 0;
 
 void menu_update(Menu *self){
@@ -21,6 +24,13 @@ void menu_update(Menu *self){
 void cursor_handler(Menu *self){
 	Uint8 *buttons = SDL_GetKeyboardState(NULL);
 	
+	buttonTimer++;
+
+	if (buttonTimer > 1){
+		buttonTimer = 0;
+		return;
+	}
+
 	if (buttons[SDL_SCANCODE_DOWN]){
 		if (self->cursorPoint < self->cursorPointTotal){
 			self->cursorPoint += 1;
@@ -45,7 +55,7 @@ void cursor_handler(Menu *self){
 }
 
 void cursor_set_position(Menu *self){
-	if (cursorTimer < 10){
+	if (cursorTimer < 3){
 		cursorTimer++;
 		return;
 	}
@@ -108,20 +118,23 @@ void SceneController(int sceneNo, Menu *menu){
 
 	switch (sceneNo)
 	{
-		//Main Menu
 	case 1:
+		{
+			Menu *mainmenu = main_menu_new();
+		}
 		genUpdates = 0;
-		//create menu object here
 		break;
-		//In Game
+		//Main Menu
 	case 2:
 		genUpdates = 1;
-		slog("gen1");
 		break;
-		//Pause Menu
+		//Gameplay
 	case 3:
+		{
+			Menu *pausemenu = pause_menu_new();
+		}
 		genUpdates = 0;
-		//create menu object here
+		//Pause Menu
 		break;
 	}
 

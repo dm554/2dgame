@@ -90,9 +90,9 @@ int main(int argc, char * argv[])
 	test = level_new("images/backgrounds/Stage1ss.png", bounds, 2);//was at 5
 	int screencount = 0;
 	int currentLevel = 1;
-	Menu *mainmen;
-	mainmen = main_menu_new("images/ui/mainmenu/menu.png", "images/ui/smallarrow.png");
-	SceneController(1, mainmen);
+	//Menu *mainmen;
+	//mainmen = main_menu_new("images/ui/mainmenu/menu.png", "images/ui/smallarrow.png");
+	SceneController(1);
 	slog("player ent made");
     /*main game loop*/
     while(!done)
@@ -189,6 +189,7 @@ int main(int argc, char * argv[])
 			//Health UI
 			gf2d_sprite_draw_image(healthbar, vector2d(0, 10));
 			player_health_display(player1);
+			if (keys[SDL_SCANCODE_Q])SceneController(3);
 		}
 
 		if (get_genUpdates() < 1){
@@ -199,7 +200,7 @@ int main(int argc, char * argv[])
 
 		//draw menus here
 		//menu_update(mainmen);
-        if (keys[SDL_SCANCODE_ESCAPE])done = 1; // exit condition
+       if (keys[SDL_SCANCODE_ESCAPE])done = 1; // exit condition
         //slog("Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
 
     }

@@ -2,7 +2,7 @@
 #include "MainMenu.h"
 
 
-Menu *main_menu_new(char *background, char *cursor){
+Menu *main_menu_new(){
 	Menu *self;
 	//self = menu_new();
 	self = (Menu*)gfc_allocate_array(sizeof(Menu), 1);
@@ -47,15 +47,16 @@ void main_menu_option_select(int select, Menu *self){
 
 void main_menu_option_1(Menu *self){
 	self->select = 0;
-	SceneController(2, self);
-	slog("scene changed");
-	//menu_free(menu_get_active());
+	SceneController(2);
+	menu_free(menu_get_active());
 }
 
 void main_menu_option_2(Menu *self){
-	menu_free(self);
+	
+	//menu_free(self);
 }
 
 void main_menu_option_3(Menu *self){
 	//close game
+	menu_free(menu_get_active());
 }

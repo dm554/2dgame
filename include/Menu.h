@@ -42,6 +42,6 @@ void cursor_option_select(Menu *self);
 void menu_update(Menu *self);
 void menu_set_active(Menu *activeMenu);
 int get_genUpdates();
-void SceneController(int sceneNo, Menu *menu);
+void SceneController(int sceneNo);
 
 #endif
