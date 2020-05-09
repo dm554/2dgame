@@ -167,6 +167,9 @@ void entity_draw(Entity *self)
 		(Uint32)self->frame);
 	gfc_rect_set(rect, self->bodyHitbox.x, self->bodyHitbox.y, self->bodyHitbox.w, self->bodyHitbox.h);
 	gf2d_draw_rect(rect, vector4d(64, 64, 255, 255));
+	if (self->type = 2){
+		grunt_health_display(self);
+	}
 }
 
 void entity_draw_all()
@@ -177,4 +180,100 @@ void entity_draw_all()
 		if (!entity_manager.entityList[i]._inuse)continue;
 		entity_draw(&entity_manager.entityList[i]);
 	}
+}
+
+Vector2D grunt_get_health(Entity* self){
+	//slog("get health");
+	int ones = self->health % 10;
+	int tens = (self->health - ones) / 10;
+
+	Vector2D healthIcons = vector2d(tens, ones);
+	return(healthIcons);
+}
+
+void grunt_health_image_set(Vector2D healthicons, Vector2D tenPosition, Vector2D onesPosition, Entity *self){
+	//slog("image set");
+	int tens = healthicons.x;
+	int ones = healthicons.y;
+
+	char *tensPath;
+	char *onesPath;
+
+	switch (tens){
+	case 1:
+		tensPath = "images/UI/Nums/1.png";
+		break;
+	case 2:
+		tensPath = "images/UI/Nums/2.png";
+		break;
+	case 3:
+		tensPath = "images/UI/Nums/3.png";
+		break;
+	case 4:
+		tensPath = "images/UI/Nums/4.png";
+		break;
+	case 5:
+		tensPath = "images/UI/Nums/5.png";
+		break;
+	case 6:
+		tensPath = "images/UI/Nums/6.png";
+		break;
+	case 7:
+		tensPath = "images/UI/Nums/7.png";
+		break;
+	case 8:
+		tensPath = "images/UI/Nums/8.png";
+		break;
+	case 9:
+		tensPath = "images/UI/Nums/9.png";
+		break;
+	case 0:
+		tensPath = "images/UI/Nums/0.png";
+		break;
+	}
+
+	switch (ones){
+	case 1:
+		onesPath = "images/UI/Nums/1.png";
+		break;
+	case 2:
+		onesPath = "images/UI/Nums/2.png";
+		break;
+	case 3:
+		onesPath = "images/UI/Nums/3.png";
+		break;
+	case 4:
+		onesPath = "images/UI/Nums/4.png";
+		break;
+	case 5:
+		onesPath = "images/UI/Nums/5.png";
+		break;
+	case 6:
+		onesPath = "images/UI/Nums/6.png";
+		break;
+	case 7:
+		onesPath = "images/UI/Nums/7.png";
+		break;
+	case 8:
+		onesPath = "images/UI/Nums/8.png";
+		break;
+	case 9:
+		onesPath = "images/UI/Nums/9.png";
+		break;
+	case 0:
+		onesPath = "images/UI/Nums/0.png";
+		break;
+	}
+
+
+	self->digit1 = gf2d_sprite_load_image(tensPath);
+	self->digit2 = gf2d_sprite_load_image(onesPath);
+
+	gf2d_sprite_draw_image(self->digit1, tenPosition);
+	gf2d_sprite_draw_image(self->digit2, onesPosition);
+}
+
+void grunt_health_display(Entity* self){
+	//slog("health display");
+	grunt_health_image_set(grunt_get_health(self), vector2d(self->position.x + 100, self->position.y + 100), self->position, self);
 }

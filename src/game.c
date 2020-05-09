@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include "gf2d_graphics.h"
 #include "gf2d_sprite.h"
+#include "gfc_audio.h"
 #include "simple_logger.h"
 #include "Player.h"
 #include "Level.h"
@@ -70,11 +71,14 @@ int main(int argc, char * argv[])
         0);
     gf2d_graphics_set_frame_delay(16);
     gf2d_sprite_init(1024);
+	gfc_audio_init(10, 2, 0, 1, 0, 0);
     SDL_ShowCursor(SDL_DISABLE);
 	entity_manager_init(100);
     
     /*demo setup*/
     //sprite = gf2d_sprite_load_image("images/backgrounds/Stage1ss.png");
+	Sound *menumusic = gfc_sound_load("audio/menu_music.wav", 0.5, 1);
+	gfc_sound_play(menumusic, 0, 0.5, 1, -1);
     mouse = gf2d_sprite_load_all("images/pointer.png",32,32,16);
 	healthbar = gf2d_sprite_load_image("images/ui/healthbackground.png");
 	
@@ -189,6 +193,7 @@ int main(int argc, char * argv[])
 			//Health UI
 			gf2d_sprite_draw_image(healthbar, vector2d(0, 10));
 			player_health_display(player1);
+			//grunt_health_display(grunt1);
 			if (keys[SDL_SCANCODE_Q])SceneController(3);
 		}
 

@@ -3,6 +3,8 @@
 
 #include "Entity.h"
 
+static Entity *THE_PLAYER;
+
 Entity *player_new(Vector2D position);
 
 void player_think(Entity *self);
@@ -21,4 +23,5 @@ void player_health_image_set(Vector2D healthicons, Vector2D tenPosition, Vector2
 
 void player_health_display(Entity* self);
 
+Entity *player_get_active();
 #endif

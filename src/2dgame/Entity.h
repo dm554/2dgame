@@ -25,9 +25,15 @@ typedef struct Entity_S
 	Vector2D position;
 	Vector2D velocity;
 
+	int hitstun;
+	int hitstunTimer;
+
 	float attacking;
 	
 	SDL_Rect bodyHitbox;
+
+	Sprite *digit1;
+	Sprite *digit2;
 
 	void(*think)(struct Entity_S *self);
 	void(*collide)(struct Entity_S *self);
