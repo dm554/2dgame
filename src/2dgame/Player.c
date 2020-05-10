@@ -5,9 +5,14 @@
 #define ES_DEAD 1
 
 static int walking = 0;
-
+static Entity *THE_PLAYER;
 Sprite* digit1;
 Sprite* digit2;
+Sprite* xp10;
+Sprite* xp1;
+Sprite* cap10;
+Sprite* cap1;
+Sprite* levelnum;
 
 void player_think(Entity *self){
 	//slog("%f", self->position.y);
@@ -15,6 +20,12 @@ void player_think(Entity *self){
 	if (!self->attacking){
 		player_move(self);
 	}
+	if (self->xp >= self->xpcap){
+		self->xp -= self->xpcap;
+		self->level++;
+	}
+	slog("Level: %i", self->level);
+	slog("XP: %i", self->xp);
 }
 
 Entity *player_new(Vector2D position){
@@ -36,7 +47,11 @@ Entity *player_new(Vector2D position){
 	self->attacking = 0;
 	self->type = 1;
 	self->health = 99;
+	self->level = 1;
+	self->xpcap = self->level * 50;
+	self->xp = 0;
 	
+	THE_PLAYER = self;
 	return self;
 }
 
@@ -210,6 +225,84 @@ void player_collide(Entity *self, Entity *other){
 	}
 }
 
+Vector2D player_get_xp(Entity *self){
+	int ones = self->xp % 10;
+	int tens = (self->xp - ones) / 10;
+
+	Vector2D xpIcons = vector2d(tens, ones);
+	return(xpIcons);
+}
+
+Vector2D player_get_cap(Entity *self){
+	int ones = self->xpcap % 10;
+	int tens = (self->xpcap - ones) / 10;
+
+	Vector2D capIcons = vector2d(tens, ones);
+	return(capIcons);
+}
+
+char *num_pathfinder(int num){
+	char *numpath;
+	
+	switch (num){
+	case 1:
+		numpath = "images/UI/Nums/1.png";
+		return(numpath);
+		break;
+	case 2:
+		numpath = "images/UI/Nums/2.png";
+		return(numpath);
+		break;
+	case 3:
+		numpath = "images/UI/Nums/3.png";
+		return(numpath);
+		break;
+	case 4:
+		numpath = "images/UI/Nums/4.png";
+		return(numpath);
+		break;
+	case 5:
+		numpath = "images/UI/Nums/5.png";
+		return(numpath);
+		break;
+	case 6:
+		numpath = "images/UI/Nums/6.png";
+		return(numpath);
+		break;
+	case 7:
+		numpath = "images/UI/Nums/7.png";
+		return(numpath);
+		break;
+	case 8:
+		numpath = "images/UI/Nums/8.png";
+		return(numpath);
+		break;
+	case 9:
+		numpath = "images/UI/Nums/9.png";
+		return(numpath);
+		break;
+	case 0:
+		numpath = "images/UI/Nums/0.png";
+		return(numpath);
+		break;
+	}
+}
+
+void player_xp_image_set(Vector2D xpIcons, Vector2D capIcons, Vector2D xpposition, Vector2D capposition, Entity *self){
+	xp10 = gf2d_sprite_load_image(num_pathfinder(xpIcons.x));
+	xp1 = gf2d_sprite_load_image(num_pathfinder(xpIcons.y));
+	cap10 = gf2d_sprite_load_image(num_pathfinder(capIcons.x));
+	cap1 = gf2d_sprite_load_image(num_pathfinder(capIcons.y));
+	levelnum = gf2d_sprite_load_image(num_pathfinder(self->level));
+
+	gf2d_sprite_draw_image(xp10, xpposition);
+	gf2d_sprite_draw_image(xp1, vector2d(xpposition.x + 35, xpposition.y));
+	gf2d_sprite_draw_image(cap10, capposition);
+	gf2d_sprite_draw_image(cap1, vector2d(capposition.x + 35, capposition.y));
+	gf2d_sprite_draw_image(levelnum, vector2d(80, 625));
+
+}
+
 Vector2D player_get_health(Entity* self){
 	//slog("get health");
 	int ones = self->health % 10;
@@ -306,3 +399,10 @@ void player_health_display(Entity* self){
 	player_health_image_set(player_get_health(self), vector2d(150, 25), vector2d(190, 25));
 }
 
+void player_xp_display(Entity *self){
+	player_xp_image_set(player_get_xp(self), player_get_cap(self), vector2d(75, 660), vector2d(170, 660), self);
+}
+
+Entity *player_get_active(){
+	return THE_PLAYER;
+}

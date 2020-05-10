@@ -23,5 +23,17 @@ void player_health_image_set(Vector2D healthicons, Vector2D tenPosition, Vector2
 
 void player_health_display(Entity* self);
 
+void player_xp_display(Entity *self);
+
+void player_xp_image_set(Vector2D xpIcons, Vector2D capIcons, Vector2D xpposition, Vector2D capposition);
+
+char *num_pathfinder(int num);
+void player_level_display(Entity *self);
+
+Vector2D player_get_cap(Entity *self);
+
+Vector2D player_get_xp(Entity *self);
+
+
 Entity *player_get_active();
 #endif

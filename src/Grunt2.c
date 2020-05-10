@@ -71,6 +71,7 @@ Entity *grunt2_new(Entity *target){
 void grunt2_think(Entity *self){
 	grunt2_move(self, playerTarget);
 	if (self->health < 1){
+		playerTarget->xp += 4;
 		entity_free(self);
 		return;
 	}

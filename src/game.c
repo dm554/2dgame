@@ -42,6 +42,7 @@ int main(int argc, char * argv[])
     int mx,my;
     float mf = 0;
     Sprite *mouse;
+	Sprite *xpbar;
     Vector4D mouseColor = {255,100,255,200};
     
 
@@ -71,19 +72,21 @@ int main(int argc, char * argv[])
         0);
     gf2d_graphics_set_frame_delay(16);
     gf2d_sprite_init(1024);
-	gfc_audio_init(10, 2, 0, 1, 0, 0);
+	gfc_audio_init(256, 16, 4, 1, 1, 1);
     SDL_ShowCursor(SDL_DISABLE);
 	entity_manager_init(100);
     
     /*demo setup*/
     //sprite = gf2d_sprite_load_image("images/backgrounds/Stage1ss.png");
-	Sound *menumusic = gfc_sound_load("audio/menu_music.wav", 0.5, 1);
-	gfc_sound_play(menumusic, 0, 0.5, 1, -1);
+
+	Sound *menumusic = gfc_sound_load("audio/menu_main.mp3", 1, 1);
+	gfc_sound_play(menumusic, 0, 0.05, -1, -1);
     mouse = gf2d_sprite_load_all("images/pointer.png",32,32,16);
 	healthbar = gf2d_sprite_load_image("images/ui/healthbackground.png");
+	xpbar = gf2d_sprite_load_image("images/ui/xpbackground.png");
 	
 	player1 = player_new(vector2d(1100,1100));
-	grunt1 = grunt_new(player1);
+	grunt1 = grunt_new(player_get_active());
 	grunt2 = grunt_new(player1);
 	grunt3 = grunt3_new(player1);
 	grunt4 = grunt3_new(player1);
@@ -192,7 +195,9 @@ int main(int argc, char * argv[])
 				(int)mf);
 			//Health UI
 			gf2d_sprite_draw_image(healthbar, vector2d(0, 10));
+			gf2d_sprite_draw_image(xpbar, vector2d(0, 625));
 			player_health_display(player1);
+			player_xp_display(player1);
 			//grunt_health_display(grunt1);
 			if (keys[SDL_SCANCODE_Q])SceneController(3);
 		}
@@ -202,7 +207,7 @@ int main(int argc, char * argv[])
 		}
 
 		gf2d_grahics_next_frame();// render current draw frame and skip to the next frame
-
+		//gfc_sound_play(menumusic, 0, 1, -1, -1);
 		//draw menus here
 		//menu_update(mainmen);
        if (keys[SDL_SCANCODE_ESCAPE])done = 1; // exit condition

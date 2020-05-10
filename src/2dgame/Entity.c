@@ -167,7 +167,7 @@ void entity_draw(Entity *self)
 		(Uint32)self->frame);
 	gfc_rect_set(rect, self->bodyHitbox.x, self->bodyHitbox.y, self->bodyHitbox.w, self->bodyHitbox.h);
 	gf2d_draw_rect(rect, vector4d(64, 64, 255, 255));
-	if (self->type = 2){
+	if (self->type == 2){
 		grunt_health_display(self);
 	}
 }
@@ -275,5 +275,5 @@ void grunt_health_image_set(Vector2D healthicons, Vector2D tenPosition, Vector2D
 
 void grunt_health_display(Entity* self){
 	//slog("health display");
-	grunt_health_image_set(grunt_get_health(self), vector2d(self->position.x + 100, self->position.y + 100), self->position, self);
+	grunt_health_image_set(grunt_get_health(self), vector2d(self->position.x - 15, self->position.y - 20), vector2d(self->position.x + 15, self->position.y -20), self);
 }

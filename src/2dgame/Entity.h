@@ -12,13 +12,18 @@ typedef struct Entity_S
 	Uint8	lastAttack; //Attack1, Attack2
 	Uint8	forward;
 	
+	int		level;
+	int		xp;
+	int		xpcap;
+
 	Sprite	*sprite;
 	
 	float frame;
 	float minFrame;
 	float maxFrame;
 
-	
+	float powermodifier;
+	float speedmodifier;
 	
 	Vector2D *scale;
 	Vector2D *scalePoint;
