@@ -11,6 +11,7 @@
 #include "MainMenu.h"
 #include "boss3.h"
 #include "ironboss.h"
+#include "Spawns.h"
 #include <SDL_image.h>
 #include <stdlib.h>
 
@@ -85,7 +86,7 @@ int main(int argc, char * argv[])
 	healthbar = gf2d_sprite_load_image("images/ui/healthbackground.png");
 	xpbar = gf2d_sprite_load_image("images/ui/xpbackground.png");
 	
-	player1 = player_new(vector2d(1100,1100));
+	/*player1 = player_new(vector2d(1100,1100));
 	grunt1 = grunt_new(player_get_active());
 	grunt2 = grunt_new(player1);
 	grunt3 = grunt3_new(player1);
@@ -93,8 +94,11 @@ int main(int argc, char * argv[])
 	grunt5 = grunt2_new(player1);
 	grunt6 = grunt2_new(player1);
 	//box = box_new();
-
-	test = level_new("images/backgrounds/Stage1ss.png", bounds, 2);//was at 5
+	test = level_new("images/backgrounds/Stage1ss.png", 2);//was at 5
+	*/
+	
+	
+	
 	int screencount = 0;
 	int currentLevel = 1;
 	//Menu *mainmen;
@@ -114,7 +118,7 @@ int main(int argc, char * argv[])
 		//slog("genupdates if");
 		if (get_genUpdates() > 0){
 			//////////////////////////////////////////////Level Controller//////////////////////////////////////////////////
-			level_mover(level_get_active(), player1);
+			level_mover(level_get_active(), player_get_active());
 			if (level_get_active()->spawnStage){
 				slog("spawnstage");
 				if (level_get_active()->maxStages == level_get_active()->currentStage){
@@ -123,20 +127,21 @@ int main(int argc, char * argv[])
 					level_get_active()->spawnStage = 0;
 					if (currentLevel == 1){
 						Entity *boss1;
-						boss1 = axel_new(player1);
+						boss1 = axel_new(player_get_active());
 					}
 					if (currentLevel == 2){
 						Entity *boss2;
-						boss2 = iron_new(player1);
+						boss2 = iron_new(player_get_active());
 					}
 					if (currentLevel == 3){
 						Entity *boss3;
-						boss3 = boss3_new(player1);
+						boss3 = boss3_new(player_get_active());
 					}
 				}
 				if (level_get_active()->currentStage < level_get_active()->maxStages){
 					level_get_active()->currentStage++;
-					Entity *grunt1;
+					spawn_grunts(player_get_active());
+					/*Entity *grunt1;
 					Entity *grunt2;
 					Entity *grunt3;
 					Entity *grunt4;
@@ -148,7 +153,7 @@ int main(int argc, char * argv[])
 					grunt3 = grunt3_new(player1);
 					grunt4 = grunt3_new(player1);
 					grunt5 = grunt2_new(player1);
-					grunt6 = grunt2_new(player1);
+					grunt6 = grunt2_new(player1);*/
 					//box = box_new();
 					level_get_active()->spawnStage = 0;
 				}
@@ -158,15 +163,15 @@ int main(int argc, char * argv[])
 				currentLevel++;
 				level_free(level_get_active());
 				if (currentLevel == 2){
-					level2 = level_new("images/backgrounds/Stage2.png", bounds, 2);//4
+					level2 = level_new("images/backgrounds/Stage2.png", 2);//4
 					level_get_active()->spawnStage = 1;
-					player1->health += 40;
+					player_get_active()->health += 40;
 					//initialize next level here
 				}
 				if (currentLevel == 3){
-					level3 = level_new("images/backgrounds/Stage3.png", bounds, 1);
+					level3 = level_new("images/backgrounds/Stage3.png", 1);
 					level_get_active()->spawnStage = 1;
-					player1->health += 30;
+					player_get_active()->health += 30;
 					//initialize next level here
 				}
 			}
@@ -196,8 +201,8 @@ int main(int argc, char * argv[])
 			//Health UI
 			gf2d_sprite_draw_image(healthbar, vector2d(0, 10));
 			gf2d_sprite_draw_image(xpbar, vector2d(0, 625));
-			player_health_display(player1);
-			player_xp_display(player1);
+			player_health_display(player_get_active());
+			player_xp_display(player_get_active());
 			//grunt_health_display(grunt1);
 			if (keys[SDL_SCANCODE_Q])SceneController(3);
 		}

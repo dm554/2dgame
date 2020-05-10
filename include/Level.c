@@ -46,7 +46,7 @@ Uint8 level_bounds_test_circle(Level *level, Vector2D center, float radius, Vect
 	return hit;
 }
 
-Level *level_new(char *backgroundFile, SDL_Rect bounds, Uint8 stages)
+Level *level_new(char *backgroundFile, Uint8 stages)
 {
 	Level *level;
 	if (!backgroundFile)
@@ -61,7 +61,7 @@ Level *level_new(char *backgroundFile, SDL_Rect bounds, Uint8 stages)
 	level->screenCount = 0;
 	level->currentStage = 1;
 	level->maxStages = stages;
-	gfc_rect_set(level->bounds, bounds.x, bounds.y, bounds.w, bounds.h);
+	//gfc_rect_set(level->bounds, bounds.x, bounds.y, bounds.w, bounds.h);
 	THE_LEVEL = level;
 	return level;
 }

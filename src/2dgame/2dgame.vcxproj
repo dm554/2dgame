@@ -117,6 +117,7 @@
     <ClInclude Include="..\..\include\MainMenu.h" />
     <ClInclude Include="..\..\include\Menu.h" />
     <ClInclude Include="..\..\include\PauseMenu.h" />
+    <ClInclude Include="..\..\include\Spawns.h" />
     <ClInclude Include="..\..\include\UIElement.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Player.h" />
@@ -154,6 +155,7 @@
     <ClCompile Include="..\MainMenu.c" />
     <ClCompile Include="..\Menu.c" />
     <ClCompile Include="..\PauseMenu.c" />
+    <ClCompile Include="..\Spawns.c" />
     <ClCompile Include="..\UIElement.c" />
     <ClCompile Include="Entity.c" />
     <ClCompile Include="Player.c" />

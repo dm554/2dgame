@@ -24,8 +24,6 @@ void player_think(Entity *self){
 		self->xp -= self->xpcap;
 		self->level++;
 	}
-	slog("Level: %i", self->level);
-	slog("XP: %i", self->xp);
 }
 
 Entity *player_new(Vector2D position){

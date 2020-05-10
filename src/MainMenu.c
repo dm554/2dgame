@@ -1,5 +1,6 @@
 #include "simple_logger.h"
 #include "MainMenu.h"
+#include "Spawns.h"
 
 
 Menu *main_menu_new(){
@@ -47,6 +48,7 @@ void main_menu_option_select(int select, Menu *self){
 
 void main_menu_option_1(Menu *self){
 	self->select = 0;
+	spawn_all(vector2d(1100, 1100), "images/backgrounds/Stage1ss.png", 2);
 	SceneController(2);
 	menu_free(menu_get_active());
 }
