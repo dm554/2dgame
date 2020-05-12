@@ -11,8 +11,8 @@ Menu *perk_menu_new(){
 	self->cursorPoint = 1;
 	self->cursorPointTotal = 2;
 	self->backPosition = vector2d(0, 0);
-	self->cursorPoint_1 = vector2d(0, 300);
-	self->cursorPoint_2 = vector2d(0, 400);
+	self->cursorPoint_1 = vector2d(230, 320);
+	self->cursorPoint_2 = vector2d(230, 420);
 	self->cursorPostion = self->cursorPoint_1;
 	self->think = perk_menu_think;
 	perkscreen++;

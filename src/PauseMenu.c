@@ -13,9 +13,9 @@ Menu *pause_menu_new(){
 	self->cursorPoint = 1;
 	self->cursorPointTotal = 3;
 	self->backPosition = vector2d(0, 0);
-	self->cursorPoint_1 = vector2d(0, 300);
-	self->cursorPoint_2 = vector2d(0, 400);
-	self->cursorPoint_3 = vector2d(0, 500);
+	self->cursorPoint_1 = vector2d(250, 160);
+	self->cursorPoint_2 = vector2d(250, 280);
+	self->cursorPoint_3 = vector2d(250, 400);
 	self->cursorPostion = self->cursorPoint_1;
 	self->think = pause_menu_think;
 	self->backsprite = gf2d_sprite_load_image("images/ui/pausemenu/pausemenu.png");
