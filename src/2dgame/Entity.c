@@ -17,6 +17,11 @@ typedef struct{
 
 static EntityManager entity_manager = { 0 };
 
+static int perkpower = 0;
+static int perkstun = 0;
+static int perkxp = 0;
+static float perkspeed = 1;
+
 void entity_manager_close()
 {
 	int i;
@@ -276,4 +281,36 @@ void grunt_health_image_set(Vector2D healthicons, Vector2D tenPosition, Vector2D
 void grunt_health_display(Entity* self){
 	//slog("health display");
 	grunt_health_image_set(grunt_get_health(self), vector2d(self->position.x - 15, self->position.y - 20), vector2d(self->position.x + 15, self->position.y -20), self);
+}
+
+int entity_get_perkpower(){
+	return perkpower;
+}
+
+float entity_get_perkspeed(){
+	return perkspeed;
+}
+
+int entity_get_perkxp(){
+	return perkxp;
+}
+
+int entity_get_perkstun(){
+	return perkstun;
+}
+
+int entity_set_perkpower(int pp){
+	perkpower += pp;
+}
+
+float entity_set_perkspeed(float ps){
+	perkspeed += ps;
+}
+
+int entity_set_perkxp(int pxp){
+	perkxp += pxp;
+}
+
+int entity_set_perkstun(int pst){
+	perkstun += pst;
 }

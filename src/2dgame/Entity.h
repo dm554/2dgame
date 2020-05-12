@@ -2,6 +2,7 @@
 #define __ENTITY_H__
 
 #include "gf2d_sprite.h"
+#include "gfc_audio.h"
 
 typedef struct Entity_S
 {
@@ -37,6 +38,8 @@ typedef struct Entity_S
 	
 	SDL_Rect bodyHitbox;
 
+	Sound *bonk;
+
 	Sprite *digit1;
 	Sprite *digit2;
 
@@ -47,6 +50,11 @@ typedef struct Entity_S
 
 Entity *entity_new();
 
+static int perkpower;
+static float perkspeed;
+static int perkstun;
+static int perkxp;
+
 void entity_manager_init(Uint32 maxEnts);
 void entity_free(Entity *self);
 void entity_free_all();
@@ -54,5 +62,16 @@ void entity_update_all();
 void entity_draw_all();
 void entity_collide_check(Entity *self);
 void entity_collide(Entity *e1, Entity *e2);
+
+int entity_get_perkpower();
+float entity_get_perkspeed();
+int entity_get_perkxp();
+int entity_get_perkstun();
+
+int entity_set_perkpower(int pp);
+float entity_set_perkspeed(float ps);
+int entity_set_perkxp(int pxp);
+int entity_set_perkstun(int pst);
+
 
 #endif

@@ -136,6 +136,18 @@ void SceneController(int sceneNo, Menu *menu){
 		genUpdates = 0;
 		//Pause Menu
 		break;
+	case 4:
+		{
+			Menu *upgrademenu = upgrade_menu_new();
+		}
+		genUpdates = 0;
+		break;
+		//Stat Menu
+	case 5:
+		{
+			Menu *perkmenu = perk_menu_new();
+		}
+		//Perk Menu
+		break;
 	}
-
 }

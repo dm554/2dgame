@@ -47,7 +47,7 @@ int main(int argc, char * argv[])
     Vector4D mouseColor = {255,100,255,200};
     
 
-	Entity *player1;
+	/*Entity *player1;
 	Entity *grunt1;
 	Entity *grunt2;
 	Entity *grunt3;
@@ -55,8 +55,9 @@ int main(int argc, char * argv[])
 	Entity *grunt5;
 	Entity *grunt6;
 	Entity *box;
+	*/
 	Uint8 currentStage;
-	Level *test;
+	//Level *test;
 	Level *level2;
 	Level *level3;
 	SDL_Rect bounds = { 0, 0, 1200, 720 };
@@ -85,19 +86,6 @@ int main(int argc, char * argv[])
     mouse = gf2d_sprite_load_all("images/pointer.png",32,32,16);
 	healthbar = gf2d_sprite_load_image("images/ui/healthbackground.png");
 	xpbar = gf2d_sprite_load_image("images/ui/xpbackground.png");
-	
-	/*player1 = player_new(vector2d(1100,1100));
-	grunt1 = grunt_new(player_get_active());
-	grunt2 = grunt_new(player1);
-	grunt3 = grunt3_new(player1);
-	grunt4 = grunt3_new(player1);
-	grunt5 = grunt2_new(player1);
-	grunt6 = grunt2_new(player1);
-	//box = box_new();
-	test = level_new("images/backgrounds/Stage1ss.png", 2);//was at 5
-	*/
-	
-	
 	
 	int screencount = 0;
 	int currentLevel = 1;
@@ -141,20 +129,6 @@ int main(int argc, char * argv[])
 				if (level_get_active()->currentStage < level_get_active()->maxStages){
 					level_get_active()->currentStage++;
 					spawn_grunts(player_get_active());
-					/*Entity *grunt1;
-					Entity *grunt2;
-					Entity *grunt3;
-					Entity *grunt4;
-					Entity *grunt5;
-					Entity *grunt6;
-					//Entity *box;
-					grunt1 = grunt_new(player1);
-					grunt2 = grunt_new(player1);
-					grunt3 = grunt3_new(player1);
-					grunt4 = grunt3_new(player1);
-					grunt5 = grunt2_new(player1);
-					grunt6 = grunt2_new(player1);*/
-					//box = box_new();
 					level_get_active()->spawnStage = 0;
 				}
 
@@ -166,12 +140,14 @@ int main(int argc, char * argv[])
 					level2 = level_new("images/backgrounds/Stage2.png", 2);//4
 					level_get_active()->spawnStage = 1;
 					player_get_active()->health += 40;
+					SceneController(4);
 					//initialize next level here
 				}
 				if (currentLevel == 3){
 					level3 = level_new("images/backgrounds/Stage3.png", 1);
 					level_get_active()->spawnStage = 1;
 					player_get_active()->health += 30;
+					SceneController(4);
 					//initialize next level here
 				}
 			}
@@ -182,10 +158,9 @@ int main(int argc, char * argv[])
 		gf2d_graphics_clear_screen();// clears drawing buffers
         // all drawing should happen betweem clear_screen and next_frame
             //backgrounds drawn first
-		//menu_draw(menu_get_active());
 		if (get_genUpdates() > 0){
 			level_draw(level_get_active());
-			//gf2d_sprite_draw_image(sprite,vector2d(0,0));
+
 			//entities second
 			entity_draw_all();
 			//UI elements last
@@ -203,7 +178,7 @@ int main(int argc, char * argv[])
 			gf2d_sprite_draw_image(xpbar, vector2d(0, 625));
 			player_health_display(player_get_active());
 			player_xp_display(player_get_active());
-			//grunt_health_display(grunt1);
+
 			if (keys[SDL_SCANCODE_Q])SceneController(3);
 		}
 
@@ -212,9 +187,7 @@ int main(int argc, char * argv[])
 		}
 
 		gf2d_grahics_next_frame();// render current draw frame and skip to the next frame
-		//gfc_sound_play(menumusic, 0, 1, -1, -1);
-		//draw menus here
-		//menu_update(mainmen);
+
        if (keys[SDL_SCANCODE_ESCAPE])done = 1; // exit condition
         //slog("Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
 

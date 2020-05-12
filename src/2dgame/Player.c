@@ -48,6 +48,7 @@ Entity *player_new(Vector2D position){
 	self->level = 1;
 	self->xpcap = self->level * 50;
 	self->xp = 0;
+	self->bonk = gfc_sound_load("audio/oof.mp3", 0.5, 3);
 	
 	THE_PLAYER = self;
 	return self;
@@ -219,7 +220,8 @@ void player_attack(Entity *self){
 void player_collide(Entity *self, Entity *other){
 	
 	if (other->attacking && self->health > 0){
-		self->health -= 0.000000001;
+		self->health -= 1;
+		gfc_sound_play(self->bonk, 0, 0.5, -1, -1);
 	}
 }
 

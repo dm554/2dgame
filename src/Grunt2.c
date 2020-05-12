@@ -64,6 +64,9 @@ Entity *grunt2_new(Entity *target){
 	self->attacking = 0;
 	self->type = 2;
 	self->health = 10;
+	self->hitstun = 0;
+	self->hitstunTimer = 0;
+	self->bonk = gfc_sound_load("audio/bonk.mp3", 1, 2);
 
 	return self;
 }
@@ -71,7 +74,7 @@ Entity *grunt2_new(Entity *target){
 void grunt2_think(Entity *self){
 	grunt2_move(self, playerTarget);
 	if (self->health < 1){
-		playerTarget->xp += 4;
+		playerTarget->xp += 4 + entity_get_perkxp();
 		entity_free(self);
 		return;
 	}
@@ -91,40 +94,49 @@ void grunt2_move(Entity *self, Entity *target){
 		self->sprite = gf2d_sprite_load_all("images/Grunt2idle.png", 64, 64, 5);
 	}
 
-	if (!self->attacking){
+	if (!self->attacking && !self->hitstun){
 		
 		if (xDistance > 50){
 			if (self->position.x > target->position.x){
-				self->position.x -= 1;
+				self->position.x -= 1 * entity_get_perkspeed();
 				return;
 			}
 			if (self->position.x < target->position.x){
-				self->position.x += 1;
+				self->position.x += 1 * entity_get_perkspeed();
 				return;
 			}
 		}
 
 		if (yDistance > 50){
 			if (self->position.y > target->position.y){
-				self->position.y -= 1;
+				self->position.y -= 1 * entity_get_perkspeed();
 				return;
 			}
 			if (self->position.y < target->position.y){
-				self->position.y += 1;
+				self->position.y += 1 * entity_get_perkspeed();
 				return;
 			}
 		}
 
 		if (xDistance > 10){
 			if (self->position.x > target->position.x){
-				self->position.x -= 1;
+				self->position.x -= 1 * entity_get_perkspeed();
 				return;
 			}
 			if (self->position.x < target->position.x){
-				self->position.x += 1;
+				self->position.x += 1 * entity_get_perkspeed();
 				return;
 			}
 		}
+	}
+
+	if (self->hitstun){
+		if (self->hitstunTimer < 50 + entity_get_perkstun()){
+			self->hitstunTimer++;
+			return;
+		}
+		self->hitstun = 0;
+		self->hitstunTimer = 0;
 	}
 
 	grunt2_attack(self);
@@ -223,6 +235,8 @@ void grunt2_collide(Entity*self, Entity *other){
 					self->position.x += 10;
 				}
 			}
+			gfc_sound_play(self->bonk, 0, 0.5, -1, -1);
+			self->hitstun = true;
 		}
 	}
 }
